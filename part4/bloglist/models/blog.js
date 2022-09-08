@@ -1,3 +1,6 @@
+// ----------------------------
+// MODELS / BLOG
+// ----------------------------
 const mongoose = require('mongoose')
 
 const blogSchema = new mongoose.Schema({
@@ -10,7 +13,11 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: [true, 'URL is required']
   },
-  likes: Number
+  likes: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 blogSchema.set('toJSON', {
