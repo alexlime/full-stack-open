@@ -13,5 +13,5 @@
 - [x] Part 3 Programming a server with NodeJS and Express
     - phonebook-backend
     - phonebook
-- [x] Part 4 Testing Express servers, user administration (ex4.1-4.2)
+- [x] Part 4 Testing Express servers, user administration
     - bloglist 
