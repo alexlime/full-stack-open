@@ -8,6 +8,8 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 
 
+// -----------------------------------
+// Helpers (to do: put in separate file)
 const initialBlogs = [
   {
     title: 'Blog used in tests',
@@ -23,11 +25,41 @@ const initialBlogs = [
   },
 ]
 
+// Helper, lggin a user
+const logInUser = async (username, password) => {
+  const user = {
+    username: username,
+    password: password
+  }
+  const result = await api
+    .post('/api/login')
+    .send(user)
+  token = `bearer ${result.body.token}`
+  return token
+}
+
+// Helper, create a user
+const createUser = async (username, name, password) => {
+  const user = {
+    username: username,
+    name: name,
+    password: password
+  }
+  const result = await api
+    .post('/api/users/')
+    .send(user)
+
+  return result
+}
+
 // Helper function returns blogs through toJSON()
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
   return blogs.map(blog => blog.toJSON())
 }
+
+// -----------------------------------
+// Tests
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -59,6 +91,10 @@ describe('Testing blog posts', () => {
 
 
   test('New blog post can be added', async () => {
+    await User.deleteMany({})
+    const newUser = await createUser('root', 'Alex Lime', 'sekret')
+    const token = await logInUser('root', 'sekret')
+
     const blogPost = {
       title: 'Testing POST request',
       author: 'AL',
@@ -69,6 +105,7 @@ describe('Testing blog posts', () => {
     await api
       .post('/api/blogs')
       .send(blogPost)
+      .set('Authorization', token) // Set the auth header
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
@@ -79,8 +116,28 @@ describe('Testing blog posts', () => {
     expect(title).toContain('Testing POST request')
   })
 
+  // ex 4.23*
+  test('Adding blog fails if a token is not provided', async () => {
+    const blogPost = {
+      title: 'Testing POST request',
+      author: 'AL',
+      url: 'www.example.com',
+      likes: 0,
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(blogPost)
+      .expect(401)
+      .expect('Content-Type', /application\/json/)
+  })
+
 
   test('Missing likes property will be defaulted to 0', async () => {
+    await User.deleteMany({})
+    const newUser = await createUser('root', 'Alex Lime', 'sekret')
+    const token = await logInUser('root', 'sekret')
+
     const blogPost = {
       title: 'Missing likes peoperty',
       author: 'AL',
@@ -90,6 +147,7 @@ describe('Testing blog posts', () => {
     await api
       .post('/api/blogs')
       .send(blogPost)
+      .set('Authorization', token) // Set the auth header
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
@@ -103,6 +161,10 @@ describe('Testing blog posts', () => {
 
 
   test('Missing title and url properties cause 400 bad request', async () => {
+    await User.deleteMany({})
+    const newUser = await createUser('root', 'Alex Lime', 'sekret')
+    const token = await logInUser('root', 'sekret')
+
     const blogPost = {
       author: 'AL',
       likes: 10,
@@ -111,6 +173,7 @@ describe('Testing blog posts', () => {
     await api
       .post('/api/blogs')
       .send(blogPost)
+      .set('Authorization', token) // Set the auth header
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
@@ -118,21 +181,37 @@ describe('Testing blog posts', () => {
     expect(blogs).toHaveLength(initialBlogs.length)
   })
 
-  test('DELETE a blogpost', async () => {
-    const blogsBefore = await blogsInDb()
-    const blogToDelete = blogsBefore[0]
 
+  test('DELETE a blogpost', async () => {
+    await User.deleteMany({})
+    const newUser = await createUser('root', 'Alex Lime', 'sekret')
+    const token = await logInUser('root', 'sekret')
+
+    const blogPost = {
+      title: 'Testing DELETE request',
+      author: 'AL',
+      url: 'www.example.com',
+      likes: 0,
+    }
+
+    // Create a blog first
+    result = await api
+      .post('/api/blogs')
+      .send(blogPost)
+      .set('Authorization', token) // Set the auth header
+      .expect(201)
+
+    // Now delete and test
     await api
-      .delete(`/api/blogs/${blogToDelete.id}`)
+      .delete(`/api/blogs/${result.body.id}`)
+      .set('Authorization', token) // Set the auth header
       .expect(204)
 
-    const blogsAfter = await blogsInDb()
-    expect(blogsAfter).toHaveLength(initialBlogs.length - 1)
-    
-    const titles = blogsAfter.map(blog => blog.title)
-    expect(titles).not.toContain(blogsAfter.title)
-
+    const blogs = await blogsInDb()
+    const titles = blogs.map(blog => blog.title)
+    expect(titles).not.toContain(result.body.title)
   })
+
 
   test('Blog post can be updated', async () => {
     const blogsBefore = await blogsInDb()
@@ -158,55 +237,30 @@ describe('Testing blog posts', () => {
   })
 })
 
+
 describe('Testing users', () => {
   test('invalid users are not created', async () => {
     await User.deleteMany({})
-    const userA = { 
-      username: 'root', 
-      name: 'Alex Lime',
-      password: 'xx'
-    }
-    const userB = { 
-      username: 'xx', 
-      name: 'Alex Lime',
-      password: 'sekret'
-    }
-    const userC = { 
-      username: '', 
-      name: 'Alex Lime',
-      password: 'sekret'
-    }
-    const userD = { 
-      username: 'root', 
-      name: 'Alex Lime',
-      password: ''
-    }
-    let result = await api
-      .post('/api/users/')
-      .send(userA)
-      .expect(400)
-    expect(result.body.error).toBe('INVALID USER: username and password must be at least 3 characters long')
 
-    result = await api
-      .post('/api/users/')
-      .send(userB)
-      .expect(400)
-    expect(result.body.error).toBe('INVALID USER: username and password must be at least 3 characters long')
+    const userA = await createUser('root', 'Alex Lime', 'xx')
+    expect(userA.status).toBe(400)
+    expect(userA.body.error).toBe('INVALID USER: username and password must be at least 3 characters long')
 
-   result = await api
-      .post('/api/users/')
-      .send(userC)
-      .expect(400)
-    expect(result.body.error).toBe('INVALID USER: username and password must not be empty')
+    const userB = await createUser('xx', 'Alex Lime', 'sekret')
+    expect(userB.status).toBe(400)
+    expect(userB.body.error).toBe('INVALID USER: username and password must be at least 3 characters long')
 
-   result = await api
-      .post('/api/users/')
-      .send(userD)
-      .expect(400)
-    expect(result.body.error).toBe('INVALID USER: username and password must not be empty')
+    const userC = await createUser('', 'Alex Lime', 'sekret')
+    expect(userC.status).toBe(400)
+    expect(userC.body.error).toBe('INVALID USER: username and password must not be empty')
+
+    const userD = await createUser('root', 'Alex Lime', '')
+    expect(userD.status).toBe(400)
+    expect(userD.body.error).toBe('INVALID USER: username and password must not be empty')
 
     const users = await User.find({})
     expect(users.length).toEqual(0)
+
   })
 })
 
