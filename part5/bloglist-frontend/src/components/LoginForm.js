@@ -1,7 +1,6 @@
-
 const LoginForm = ({
   user,
-  handleSubmit,
+  handleLogin,
   handleUsername,
   handlePassword,
   username,
@@ -10,7 +9,7 @@ const LoginForm = ({
 }) => {
   if (user === null) {
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleLogin}>
         <div>
           username
           <input

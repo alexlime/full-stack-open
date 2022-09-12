@@ -15,3 +15,5 @@
     - phonebook
 - [x] Part 4 Testing Express servers, user administration
     - bloglist 
+- [ ] Part 5 Testing React apps
+    - bloglist-frontend 
