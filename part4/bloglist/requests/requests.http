@@ -9,10 +9,10 @@ GET http://localhost:3003/api/users
 ### ADD BLOG
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMTkzMWQ3NzQ4NWYwMmZlYTMxNmZlNCIsImlhdCI6MTY2MjY1NDY4MSwiZXhwIjoxNjYyNjU4MjgxfQ.HuueU0KtDeRbv3sjnwKmIIhVEtDd6XhvG9jch1R8Kao
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMTkzMWQ3NzQ4NWYwMmZlYTMxNmZlNCIsImlhdCI6MTY2Mjk5Nzc2NSwiZXhwIjoxNjYzMDAxMzY1fQ._KAMiAbWq2pFBhMP6KkcUEnriRJTHUoC_DL_0JT4TLk
 
 {
-  "title": "asdasdasda",
+  "title": "",
   "author": "Elon Musk",
   "likes": 15,
   "url": "https://apple.com/uk/"

@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, 'Blog title is required']
+    required: [true, 'Blog title is required :(']
   },
   author: String,
   url: {
