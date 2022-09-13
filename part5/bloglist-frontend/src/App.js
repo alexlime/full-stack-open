@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import Notification from './components/Notification'
 import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
+import Togglable from './components/Togglable'
 
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -20,6 +21,8 @@ const App = () => {
   const [blogAuthor, setBlogAuthor] = useState('')
   const [blogUrl, setBlogUrl] = useState('')
 
+  const blogFormRef = useRef()
+
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
@@ -34,6 +37,7 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
 
   const showNotification = (text, notificationType, seconds) => {
     setMessageClass(notificationType)
@@ -67,6 +71,9 @@ const App = () => {
   const addBlog = async (event) => {
     event.preventDefault()
 
+    // hides form after blog is created
+    blogFormRef.current.toggleVisibility() 
+
     const blogObject = {
       title: blogTitle,
       author: blogAuthor,
@@ -90,28 +97,38 @@ const App = () => {
     <div>
       <h2>login to app</h2>
 
-      <Notification message={message} messageClass={messageClass} />
-
-      <LoginForm 
-        user={user}
-        username={username}
-        password={password}
-        handleUsername={ ({ target }) => setUsername(target.value) }
-        handlePassword={ ({ target }) => setPassword(target.value) }
-        handleLogin={handleLogin}
-        handleLogOut={() => {window.localStorage.clear();setUser(null);}}
-      />   
-
-      <BlogForm 
-        user={user}
-        title={blogTitle}
-        author={blogAuthor}
-        url={blogUrl}
-        handleTitle={ ({target}) => setBlogTitle(target.value) } 
-        handleAuthor={ ({target}) => setBlogAuthor(target.value) }
-        handleUrl={ ({target}) => setBlogUrl(target.value) }
-        submitNewBlog={ addBlog }
+      <Notification 
+        message={message} 
+        messageClass={messageClass} 
       />
+
+      {user === null ?
+        <LoginForm 
+          user={user}
+          username={username}
+          password={password}
+          handleUsername={ ({ target }) => setUsername(target.value) }
+          handlePassword={ ({ target }) => setPassword(target.value) }
+          handleLogin={handleLogin}
+        /> 
+        :
+        <div>
+          {user.name} logged in
+          <button onClick={() => {window.localStorage.clear();setUser(null);}}>log out</button>
+          <Togglable buttonLabel="add new blog" ref={blogFormRef}>
+            <BlogForm 
+              user={user}
+              title={blogTitle}
+              author={blogAuthor}
+              url={blogUrl}
+              handleTitle={ ({target}) => setBlogTitle(target.value) } 
+              handleAuthor={ ({target}) => setBlogAuthor(target.value) }
+              handleUrl={ ({target}) => setBlogUrl(target.value) }
+              submitNewBlog={ addBlog }
+            />
+          </Togglable>
+        </div>
+      }
 
       <h2>blogs</h2>
       {blogs.map(blog =>
