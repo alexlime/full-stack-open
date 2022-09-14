@@ -25,13 +25,12 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb
 
 
 ### UPDATE BLOG
-PUT http://localhost:3003/api/blogs/63212bf88429f9fdccecec02
+PUT http://localhost:3003/api/blogs/63212c158429f9fdccecec07
 Content-Type: application/json
 
 {
-  "title": "Hello Worldd",
-  "url": "www",
-  "likes": 4
+    "title": "Elons new blog post",
+  "likes": 0
 }
 
 

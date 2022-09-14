@@ -18,13 +18,26 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  const blogFormRef = useRef()
+  const blogFormRef = useRef()  
 
+  /* Count app renders helper */
+  // const renderCount = useRef(0)
+  // renderCount.current += 1
+  
+  /* Fetch all blogs, sort by number of likes and set the blogs array.
+  Triggered only on the first render. */
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+    blogService.getAll().then(blogs => {
+      setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
+    })  
   }, [])
+
+  /* Sort blogs array by number of likes and re-render the app. 
+  Triggered each time when setBlogs() method is called. 
+  (note: room for a more efficient solution check how many times effect is triggered on first render) */ 
+  useEffect(() => { 
+    setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
+  }, [blogs])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
