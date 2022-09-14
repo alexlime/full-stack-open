@@ -32,12 +32,13 @@ const App = () => {
     })  
   }, [])
 
-  /* Sort blogs array by number of likes and re-render the app. 
+  /* Kept as an example.
+  Sort blogs array by number of likes and re-render the app. 
   Triggered each time when setBlogs() method is called. 
-  (note: room for a more efficient solution check how many times effect is triggered on first render) */ 
-  useEffect(() => { 
-    setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
-  }, [blogs])
+  (note: room for a more efficient solution - check how effect is triggered on first render) */ 
+  // useEffect(() => { 
+  //   setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
+  // }, [blogs])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
@@ -47,7 +48,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
 
   const showNotification = (text, notificationType, seconds) => {
     setMessageClass(notificationType)
@@ -92,6 +92,16 @@ const App = () => {
     }
   }
 
+  const deleteBlog = async (blogId) => {
+    try {
+      const result = await blogService.remove(blogId)
+      setBlogs(blogs.filter(b => b.id !== blogId))
+      showNotification(`Blog successfully deleted!`, 'success', 5)
+    } catch (exception) {
+      console.log(exception)
+    }
+  }
+
   const addLike = async (blogObject) => {
     try {
       const updatedBlog = await blogService.update(blogObject.id, blogObject)
@@ -132,7 +142,13 @@ const App = () => {
 
       <h2>blogs</h2>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} addLike={addLike} />
+        <Blog 
+          key={blog.id} 
+          blog={blog} 
+          addLike={addLike}
+          removeBlog={deleteBlog} 
+          user={user}
+        />
       )}
     </div>
   )

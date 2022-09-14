@@ -9,12 +9,12 @@ GET http://localhost:3003/api/users
 ### ADD BLOG
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzMTkzMWQ3NzQ4NWYwMmZlYTMxNmZlNCIsImlhdCI6MTY2Mjk5Nzc2NSwiZXhwIjoxNjYzMDAxMzY1fQ._KAMiAbWq2pFBhMP6KkcUEnriRJTHUoC_DL_0JT4TLk
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsb24iLCJpZCI6IjYzMjIxY2E3ODNhYTg3MzhmZWVkYmQ4OSIsImlhdCI6MTY2MzE4OTQxMSwiZXhwIjoxNjYzMTkzMDExfQ.VoTpRX6x_mMA52YY-nTQnWxIIKatlTmHl5Cu1zq5m_0
 
 {
-  "title": "",
-  "author": "Elon Musk",
-  "likes": 15,
+  "title": "ada1fweew asd",
+  "author": "elon",
+  "likes": 2,
   "url": "https://apple.com/uk/"
 }
 
@@ -25,11 +25,11 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb
 
 
 ### UPDATE BLOG
-PUT http://localhost:3003/api/blogs/63212c158429f9fdccecec07
+PUT http://localhost:3003/api/blogs/63221f2d83aa8738feedbdbb
 Content-Type: application/json
 
 {
-    "title": "Elons new blog post",
+  "title": "1234",
   "likes": 0
 }
 
@@ -44,13 +44,13 @@ Content-Type: application/json
 }
 
 
-### LOGIN root
+### LOGIN 
 POST http://localhost:3003/api/login
 Content-Type: application/json
 
 {
-    "username": "root",
-    "password": "sekret"
+    "username": "elon",
+    "password": "nixdorf"
 }
 
 
@@ -59,8 +59,8 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": "elon",
-    "name": "Elon Musk",
+    "username": "alex",
+    "name": "Aleksejs Limenko",
     "password": "nixdorf"
 }
 
