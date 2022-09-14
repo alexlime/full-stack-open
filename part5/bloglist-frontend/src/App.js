@@ -79,6 +79,16 @@ const App = () => {
     }
   }
 
+  const addLike = async (blogObject) => {
+    try {
+      const updatedBlog = await blogService.update(blogObject.id, blogObject)
+      // Find and replace liked blog in the blogs array
+      setBlogs(blogs.map(b => b.id === updatedBlog.id ? updatedBlog : b))
+    } catch (exception) {
+      console.log(exception)
+    }
+  }
+
   return (
     <div>
       <h2>login to app</h2>
@@ -109,7 +119,7 @@ const App = () => {
 
       <h2>blogs</h2>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} addLike={addLike} />
       )}
     </div>
   )

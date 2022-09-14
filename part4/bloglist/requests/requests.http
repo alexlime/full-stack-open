@@ -25,12 +25,13 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb
 
 
 ### UPDATE BLOG
-PUT http://localhost:3003/api/blogs/62c43c7be3c988dca2aa3e5a
+PUT http://localhost:3003/api/blogs/63212bf88429f9fdccecec02
 Content-Type: application/json
 
 {
-  "title": "UPDATED! All good! :)",
-  "likes": 1
+  "title": "Hello Worldd",
+  "url": "www",
+  "likes": 4
 }
 
 
@@ -59,8 +60,8 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": "alexlime",
-    "name": "Alex Limenko",
+    "username": "elon",
+    "name": "Elon Musk",
     "password": "nixdorf"
 }
 
