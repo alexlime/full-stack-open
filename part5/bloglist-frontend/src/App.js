@@ -17,9 +17,6 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [blogTitle, setBlogTitle] = useState('')
-  const [blogAuthor, setBlogAuthor] = useState('')
-  const [blogUrl, setBlogUrl] = useState('')
 
   const blogFormRef = useRef()
 
@@ -68,24 +65,13 @@ const App = () => {
     }
   }
 
-  const addBlog = async (event) => {
-    event.preventDefault()
-
+  const createBlog = async (blogObject) => {
     // hides form after blog is created
     blogFormRef.current.toggleVisibility() 
-
-    const blogObject = {
-      title: blogTitle,
-      author: blogAuthor,
-      url: blogUrl,
-    }
 
     try {
       const blog = await blogService.create(blogObject)
       setBlogs(blogs.concat(blog))
-      setBlogTitle('')
-      setBlogUrl('')
-      setBlogAuthor('')
       showNotification(`a new ${blog.title} added`, 'success', 5)
     } catch (exception) {
       console.log('BLOG VALIDATION FAILED:', exception)
@@ -116,16 +102,7 @@ const App = () => {
           {user.name} logged in
           <button onClick={() => {window.localStorage.clear();setUser(null);}}>log out</button>
           <Togglable buttonLabel="add new blog" ref={blogFormRef}>
-            <BlogForm 
-              user={user}
-              title={blogTitle}
-              author={blogAuthor}
-              url={blogUrl}
-              handleTitle={ ({target}) => setBlogTitle(target.value) } 
-              handleAuthor={ ({target}) => setBlogAuthor(target.value) }
-              handleUrl={ ({target}) => setBlogUrl(target.value) }
-              submitNewBlog={ addBlog }
-            />
+            <BlogForm submitBlog={createBlog} />
           </Togglable>
         </div>
       }
