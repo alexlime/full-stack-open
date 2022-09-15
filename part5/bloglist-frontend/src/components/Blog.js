@@ -5,12 +5,12 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
 
   const visibility = { display: visible ? '' : 'none' }
 
-  const toggleVisibility = () => { 
+  const toggleVisibility = () => {
     setVisible(!visible)
   }
 
   const handleLike = (event) => {
-    event.preventDefault()  
+    event.preventDefault()
     addLike({
       id: blog.id,
       likes: blog.likes+=1
@@ -18,7 +18,7 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
   }
 
   const handleRemove = (event) => {
-    event.preventDefault() 
+    event.preventDefault()
     if (window.confirm(`Remove blog ${blog.title} ?`)) {
       removeBlog(blog.id)
     }
@@ -31,14 +31,13 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  
 
   return (
     <div style={blogStyle}>
-      {blog.title} {blog.author} 
+      {blog.title} {blog.author}
       <button onClick={toggleVisibility}>{ visible ? 'hide' : 'show' }</button>
-      
-      <div style={visibility}>      
+
+      <div style={visibility}>
         {blog.url}<br />
         likes: {blog.likes} <button onClick={handleLike}>like</button><br />
         {blog.user.name}<br />
@@ -47,7 +46,7 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
           <button onClick={handleRemove}>remove</button>
         }
       </div>
-    </div>  
+    </div>
   )
 }
 

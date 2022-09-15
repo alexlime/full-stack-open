@@ -4,7 +4,6 @@ const LoginForm = ({
   handlePassword,
   username,
   password,
-  handleLogOut,
 }) => {
 
   return (
@@ -12,16 +11,16 @@ const LoginForm = ({
       <div>
         username
         <input
-        value={username}
-        onChange={handleUsername}
+          value={username}
+          onChange={handleUsername}
         />
       </div>
       <div>
         password
         <input
-        type="password"
-        value={password}
-        onChange={handlePassword}
+          type="password"
+          value={password}
+          onChange={handlePassword}
         />
       </div>
       <button type="submit">login</button>

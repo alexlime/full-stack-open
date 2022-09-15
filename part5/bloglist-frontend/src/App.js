@@ -18,25 +18,25 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  const blogFormRef = useRef()  
+  const blogFormRef = useRef()
 
   /* Count app renders helper */
   // const renderCount = useRef(0)
   // renderCount.current += 1
-  
+
   /* Fetch all blogs, sort by number of likes and set the blogs array.
   Triggered only on the first render. */
   useEffect(() => {
     blogService.getAll().then(blogs => {
       setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
-    })  
+    })
   }, [])
 
   /* Kept as an example.
-  Sort blogs array by number of likes and re-render the app. 
-  Triggered each time when setBlogs() method is called. 
-  (note: room for a more efficient solution - check how effect is triggered on first render) */ 
-  // useEffect(() => { 
+  Sort blogs array by number of likes and re-render the app.
+  Triggered each time when setBlogs() method is called.
+  (note: room for a more efficient solution - check how effect is triggered on first render) */
+  // useEffect(() => {
   //   setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
   // }, [blogs])
 
@@ -51,9 +51,9 @@ const App = () => {
 
   const showNotification = (text, notificationType, seconds) => {
     setMessageClass(notificationType)
-    setMessage(text) 
+    setMessage(text)
     setTimeout(() => {
-      setMessage(null) 
+      setMessage(null)
     }, seconds * 1000)
   }
 
@@ -80,7 +80,7 @@ const App = () => {
 
   const createBlog = async (blogObject) => {
     // hides form after blog is created
-    blogFormRef.current.toggleVisibility() 
+    blogFormRef.current.toggleVisibility()
 
     try {
       const blog = await blogService.create(blogObject)
@@ -94,9 +94,9 @@ const App = () => {
 
   const deleteBlog = async (blogId) => {
     try {
-      const result = await blogService.remove(blogId)
+      await blogService.remove(blogId)
       setBlogs(blogs.filter(b => b.id !== blogId))
-      showNotification(`Blog successfully deleted!`, 'success', 5)
+      showNotification('Blog successfully deleted!', 'success', 5)
     } catch (exception) {
       console.log(exception)
     }
@@ -116,24 +116,24 @@ const App = () => {
     <div>
       <h2>login to app</h2>
 
-      <Notification 
-        message={message} 
-        messageClass={messageClass} 
+      <Notification
+        message={message}
+        messageClass={messageClass}
       />
 
       {user === null ?
-        <LoginForm 
+        <LoginForm
           user={user}
           username={username}
           password={password}
           handleUsername={ ({ target }) => setUsername(target.value) }
           handlePassword={ ({ target }) => setPassword(target.value) }
           handleLogin={handleLogin}
-        /> 
+        />
         :
         <div>
           {user.name} logged in
-          <button onClick={() => {window.localStorage.clear();setUser(null);}}>log out</button>
+          <button onClick={() => {window.localStorage.clear();setUser(null)}}>log out</button>
           <Togglable buttonLabel="add new blog" ref={blogFormRef}>
             <BlogForm submitBlog={createBlog} />
           </Togglable>
@@ -142,11 +142,11 @@ const App = () => {
 
       <h2>blogs</h2>
       {blogs.map(blog =>
-        <Blog 
-          key={blog.id} 
-          blog={blog} 
+        <Blog
+          key={blog.id}
+          blog={blog}
           addLike={addLike}
-          removeBlog={deleteBlog} 
+          removeBlog={deleteBlog}
           user={user}
         />
       )}
