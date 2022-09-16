@@ -35,9 +35,10 @@ const Blog = ({ blog, addLike, removeBlog, user }) => {
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}
+
       <button onClick={toggleVisibility}>{ visible ? 'hide' : 'show' }</button>
 
-      <div style={visibility}>
+      <div className="moreInfo" style={visibility}>
         {blog.url}<br />
         likes: {blog.likes} <button onClick={handleLike}>like</button><br />
         {blog.user.name}<br />
