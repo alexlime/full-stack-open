@@ -4,7 +4,10 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
-test('renders title and author only', () => {
+
+describe('<Blog />', () => {
+  // Set up the screen before each test
+  let container
   const blog = {
     title: 'testing blog component',
     author: 'alex',
@@ -15,45 +18,51 @@ test('renders title and author only', () => {
       username: 'al'
     }
   }
-  const user = {username: 'al'}
-
-  render(<Blog user={user} blog={blog} />)
-
-
-  const element = screen.getByText('testing blog component alex')
-  expect(element).toBeDefined()
-
-  const hiddenContent = element.querySelector('.moreInfo')
-  expect(hiddenContent).toHaveStyle('display: none')
-  // screen.debug(hiddenContent)
-})
-
-test('Reveal additional blog content when show button is clicked', async () => {
-  const blog = {
-    title: 'testing blog component',
-    author: 'alex',
-    url: 'xyz.com',
-    likes: '1',
-    user: {
-      name: 'alex lime',
-      username: 'al'
-    }
-  }
-  const user = {username: 'al'}
-  
+  const user = { username: 'al' }
   const mockHandler = jest.fn()
+  beforeEach(() => {
+    container = render (
+      <Blog 
+        user={user} 
+        blog={blog} 
+        addLike={mockHandler} />
+      ).container
+  })
 
-  const { container } = render(<Blog user={user} blog={blog} />)
 
-  const hiddenContent = container.querySelector('.moreInfo')
-  const button = screen.getByText('show')
+  test('renders title and author only', () => {
+    const element = screen.getByText('testing blog component alex')
+    expect(element).toBeDefined()
 
-  // before click additional content is hidden
-  expect(hiddenContent).toHaveStyle('display: none')
-  
-  const action = userEvent.setup()
-  await action.click(button)
+    const hiddenContent = container.querySelector('.moreInfo')
+    expect(hiddenContent).toHaveStyle('display: none')
+    // screen.debug(hiddenContent)
+  })
 
-  // after click additional content is shown
-  expect(hiddenContent).not.toHaveStyle('display: none')
+  test('Reveal additional blog content when show button is clicked', async () => {
+
+    const hiddenContent = container.querySelector('.moreInfo')
+    const button = screen.getByText('show')
+
+    // before click additional content is hidden
+    expect(hiddenContent).toHaveStyle('display: none')
+
+    const action = userEvent.setup()
+    await action.click(button)
+
+    // after click additional content is shown
+    expect(hiddenContent).not.toHaveStyle('display: none')
+
+  })
+
+  test('clicking the like button twice calls event handler twice', async () => {
+    const action = userEvent.setup()
+    const button = screen.getByText('like')
+
+    await action.click(button)
+    await action.click(button)
+
+    expect(mockHandler.mock.calls).toHaveLength(2)
+    // screen.debug(button)
+  })
 })
