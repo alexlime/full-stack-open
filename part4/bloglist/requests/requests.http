@@ -64,3 +64,6 @@ Content-Type: application/json
     "password": "nixdorf"
 }
 
+
+### TESTING reset testing database
+POST http://localhost:3003/api/testing/reset
