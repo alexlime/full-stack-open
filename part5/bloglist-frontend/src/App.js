@@ -32,13 +32,12 @@ const App = () => {
     })
   }, [])
 
-  /* Kept as an example.
-  Sort blogs array by number of likes and re-render the app.
-  Triggered each time when setBlogs() method is called.
-  (note: room for a more efficient solution - check how effect is triggered on first render) */
-  // useEffect(() => {
-  //   setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
-  // }, [blogs])
+
+  /* Re-renders and sorts the blogs array each time when setBlogs() method is called (when like button ckicked).
+  (Not sure if this feature is needed but here it is...) */
+  useEffect(() => {
+    setBlogs(blogs.sort((x,y) => x.likes < y.likes ? 1 : -1))
+  }, [blogs])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
