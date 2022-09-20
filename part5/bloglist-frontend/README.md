@@ -1,2 +1,0 @@
-# Bloglist – frontend app 
-

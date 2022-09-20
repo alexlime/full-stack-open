@@ -32,11 +32,11 @@
 - [x] **Part 3 Programming a server with NodeJS and Express**
   - Completed apps:
     - *phonebook* (React app)
-    - *phonebook-backend*
+    - *phonebook-backend* [app deployed to Heroku](https://tranquil-savannah-80727.herokuapp.com)
   - Main topics:
-    - Usng [express](https://expressjs.com/) and implementing REST api
+    - Usng express and implementing REST api
     - Setting up middleware
-    - Deploying to [Heroku](https://www.heroku.com/)
+    - Deploying to Heroku
     - Deploying MongoDB ([MongoDB Atlas](https://www.mongodb.com/atlas/database)) and connecting backend to the database.
     - Frontend production build
     - ESlint, validation and notifications
