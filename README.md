@@ -61,9 +61,7 @@
     - End to end testing with [cypress](https://www.cypress.io/)
 
 - [ ] **Part 6 State management with Redux**
-  - Exercises:
-    - ...
   - Completed apps:
-    - ...
+    - *unicafe-redux*
   - Main topics:
     - ...
