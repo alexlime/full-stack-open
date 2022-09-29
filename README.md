@@ -63,5 +63,9 @@
 - [ ] **Part 6 State management with Redux**
   - Completed apps:
     - *unicafe-redux*
+    - *redux-anecdotes*
   - Main topics:
+    - Implementing reducer and its tests, action creators and uncontrolled forms
+    - Forwarding Redux-Store to components
+    - Redux Toolkit (Conbined reducers?)
     - ...
