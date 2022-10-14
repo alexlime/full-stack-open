@@ -28,17 +28,11 @@ const anecdoteSlice = createSlice({
   reducers: {
     addVote(state, action) {
       const id = action.payload
-      const anecdoteToVote = state.find(n => n.id === id)
-      const votedAnecdote = {
-        ...anecdoteToVote, 
-        votes: anecdoteToVote.votes + 1
-      }
-
-      const newState = state
-        .map(anecdote => anecdote.id !== id ? anecdote : votedAnecdote)
-        .sort((x,y) => y.votes - x.votes) 
-
-      return newState
+      /* Find anecdote by id and increment the votes directly  
+      (mutating the state with redux-toolkit feature (Immer lib)) */
+      state.find(n => n.id === id).votes += 1
+      /* Sorting the state in-place */
+      state.sort((x,y) => y.votes - x.votes)
     },
     addAnecdote(state, action) {
       state.push({
