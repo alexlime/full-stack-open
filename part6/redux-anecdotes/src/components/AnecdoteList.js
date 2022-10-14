@@ -16,8 +16,10 @@ const Anecdote = ({anecdote, handleVote}) => {
 }
 
 const AnecdoteList = (props) => {
-  const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
+  // const anecdotes = useSelector(state => state)
+  const anecdotes = useSelector(state => state.anecdotes)
+  
 
   const handleVote = (id) => {
     dispatch(addVote(id))
@@ -35,5 +37,7 @@ const AnecdoteList = (props) => {
     </div>
   )
 }
+
+
 
 export default AnecdoteList
