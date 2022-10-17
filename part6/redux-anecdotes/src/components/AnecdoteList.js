@@ -21,7 +21,21 @@ const Anecdote = ({anecdote, handleVote}) => {
 const AnecdoteList = (props) => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(state => state.anecdotes)
-
+  const filterState = useSelector(state => state.filter)
+  
+  /* 
+    If filter input is used then filter 
+    the anecdote list accordingly 
+  */
+  let anecdotesToShow = anecdotes
+  if (filterState !== '') {
+    anecdotesToShow = anecdotes.filter(anecdote => (
+      anecdote.content
+        .toLowerCase()
+        .includes(filterState.toLowerCase()) 
+    ))
+  } 
+  
   const handleVote = (anecdote) => {
     const message = `You voted: "${anecdote.content.slice(0, 40)}..."`
     dispatch( addVote(anecdote.id) )
@@ -35,7 +49,7 @@ const AnecdoteList = (props) => {
   return (
     <div>
       <Notification />
-      {anecdotes.map(anecdote =>
+      {anecdotesToShow.map(anecdote =>
         <Anecdote 
           key={anecdote.id}
           anecdote={anecdote}
@@ -45,7 +59,5 @@ const AnecdoteList = (props) => {
     </div>
   )
 }
-
-
 
 export default AnecdoteList
