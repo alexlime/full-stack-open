@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { addVote } from '../reducers/anecdoteReducer'
+import { createVote } from '../reducers/anecdoteReducer'
 import { showNotification, hideNotification } from '../reducers/notificationReducer'
 
 import Notification from './Notification'
@@ -24,7 +24,7 @@ const AnecdoteList = (props) => {
   const filterState = useSelector(state => state.filter)
   
   /* 
-    If filter input is used then filter 
+    If input filter is used then filter 
     the anecdote list accordingly 
   */
   let anecdotesToShow = anecdotes
@@ -38,7 +38,7 @@ const AnecdoteList = (props) => {
   
   const handleVote = (anecdote) => {
     const message = `You voted: "${anecdote.content.slice(0, 40)}..."`
-    dispatch( addVote(anecdote.id) )
+    dispatch( createVote(anecdote) )
     // Notification show/hide
     dispatch( showNotification(message))
     setTimeout(() => {
