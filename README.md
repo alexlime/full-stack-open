@@ -60,12 +60,13 @@
     - Unit testing with Jest and [react-testing-library](https://github.com/testing-library/react-testing-library)
     - End to end testing with [cypress](https://www.cypress.io/)
 
-- [ ] **Part 6 State management with Redux**
+- [x] **Part 6 State management with Redux**
   - Completed apps:
     - *unicafe-redux*
     - *redux-anecdotes*
   - Main topics:
     - Implementing reducer and its tests, action creators and uncontrolled forms
-    - Forwarding Redux-Store to components
-    - Redux Toolkit (Conbined reducers?)
-    - ...
+    - Using Redux Toolkit
+      - communicating with server in a redux app
+      - redux thunk and async actions
+    - Using redux-store with newer hook api and older `connect` function provided by react-redux
