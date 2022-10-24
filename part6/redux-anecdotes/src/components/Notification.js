@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 const Notification = (props) => {
-  const notification = props.notification.content
+  const notification = props.notification
 
   let style = {
     border: 'solid',
@@ -9,8 +9,8 @@ const Notification = (props) => {
     borderWidth: 1
   }
 
-  if ( notification === null) {
-    style = { ...style, display: 'none' }  
+  if ( !notification) {
+    return null
   }
 
   return (
