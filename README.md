@@ -70,3 +70,10 @@
       - communicating with server in a redux app
       - redux thunk and async actions
     - Using redux-store with newer hook api and older `connect` function provided by react-redux
+
+- [ ] **Part 7 React router, custom hooks, styling app with CSS and webpack**
+  - Completed apps:
+    - ...
+    - ...
+  - Main topics: 
+    - ...
