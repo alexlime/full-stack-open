@@ -38,7 +38,7 @@ const AnecdoteList = (props) => {
   
   const handleVote = async (anecdote) => {
     dispatch( createVote(anecdote) )
-    dispatch(setNotification(`you voted '${anecdote.content}'`, 10))
+    dispatch(setNotification(`you voted '${anecdote.content}'`, 5))
   }
 
   return (
