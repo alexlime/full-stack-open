@@ -25,11 +25,24 @@ const Menu = () => {
   )
 }
 
+const Anecdote = ({ anecdote }) => (
+  <div>
+    <h2>{anecdote.content}</h2>
+    <div>{anecdote.author}</div>
+    <div>url: {anecdote.url}</div>
+    <div>votes: {anecdote.votes}</div>
+  </div>
+)
+
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => 
+        <li key={anecdote.id} >
+          <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+        </li>
+      )}
     </ul>
   </div>
 )
@@ -49,7 +62,7 @@ const About = () => (
 )
 
 const Footer = () => (
-  <div>
+  <div style={{ marginTop: 40 }}>
     Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
 
     See <a href='https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js'>https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js</a> for the source code.
@@ -95,6 +108,7 @@ const CreateNew = (props) => {
 
 }
 
+
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
     {
@@ -114,6 +128,13 @@ const App = () => {
   ])
 
   const [notification, setNotification] = useState('')
+  const match = useMatch('/anecdotes/:id')
+  const anecdote = match 
+    ? anecdotes.find(anecdote => anecdote.id === Number(match.params.id))
+    : null
+
+    console.log(anecdote)
+
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000)
@@ -142,6 +163,7 @@ const App = () => {
       <Menu />
 
       <Routes>
+        <Route path='/anecdotes/:id' element={ <Anecdote anecdote={anecdote} />} />
         <Route path='/' element={ <AnecdoteList anecdotes={anecdotes} /> } />
         <Route path='/about' element={ <About /> } />
         <Route path='/create' element={ <CreateNew addNew={addNew} /> } />
