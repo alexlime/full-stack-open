@@ -76,4 +76,6 @@
     - *routed-anecdotes*
     - ...
   - Main topics: 
-    - ...
+    - Implementing React router:
+      -  Parameterised routes 
+      - `useMatch`, `useParams` and `useNavigate` hooks
