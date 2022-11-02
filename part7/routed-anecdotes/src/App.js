@@ -82,9 +82,10 @@ const CreateNew = (props) => {
   const content = useField('text')
   const author = useField('text')
   const info = useField('text')
+  // const reset = useField('', true)
   const navigate = useNavigate()
 
-  console.log(content.value)
+  // console.log(content)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -96,6 +97,17 @@ const CreateNew = (props) => {
     })
     navigate('/')
   }
+  
+  const handleReset = (e) => {
+    e.preventDefault()
+    content.onReset() 
+    author.onReset()
+
+    /*  Also works if I simply call the input event, 
+       so I can also avoid using onReset method completly  */
+    info.onChange(e) 
+  }
+
 
   return (
     <div>
@@ -114,6 +126,7 @@ const CreateNew = (props) => {
           <input {...info} />
         </div>
         <button>create</button>
+        <button onClick={handleReset}>reset</button>
       </form>
     </div>
   )
