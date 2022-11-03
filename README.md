@@ -75,6 +75,7 @@
   - Completed apps:
     - *routed-anecdotes*
     - *country-hook*
+    - *ultimate-hooks*
   - Main topics: 
     - Implementing React router:
       -  Parameterised routes 
