@@ -74,8 +74,9 @@
 - [ ] **Part 7 React router, custom hooks, styling app with CSS and webpack**
   - Completed apps:
     - *routed-anecdotes*
-    - ...
+    - *country-hook*
   - Main topics: 
     - Implementing React router:
       -  Parameterised routes 
       - `useMatch`, `useParams` and `useNavigate` hooks
+      - Custom hooks
