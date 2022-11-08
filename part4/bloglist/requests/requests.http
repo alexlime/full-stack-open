@@ -40,7 +40,7 @@ Content-Type: application/json
 
 {
     "username": "alex",
-    "password": "nixdorf"
+    "password": "root"
 }
 
 
@@ -50,7 +50,7 @@ Content-Type: application/json
 
 {
     "username": "elon",
-    "password": "nixdorf"
+    "password": "root"
 }
 
 
@@ -59,8 +59,8 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": "alex",
-    "name": "Aleksejs Limenko",
+    "username": "elon",
+    "name": "Elon Musk",
     "password": "root"
 }
 
