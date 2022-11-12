@@ -1,47 +1,59 @@
 import { useState, useEffect, useRef } from 'react'
 
 import Notification from './components/Notification'
-import Blog from './components/Blog'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
+
+// import Blog from './components/Blog'
+import BlogList from './components/BlogList'
+
 
 import blogService from './services/blogs'
 import loginService from './services/login'
 import './index.css'
 
+// Redux migration imports
 import { useDispatch } from 'react-redux'
-import { setNotification } from './notificationReducer'
+import { setNotification } from './reducers/notificationReducer'
+import { initialiseBlogs } from './reducers/blogReducer'
+
+
 
 const App = () => {
   const [message, setMessage] = useState(null)
   const [messageClass, setMessageClass] = useState(null)
-  const [blogs, setBlogs] = useState([])
+  // const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   const blogFormRef = useRef()
+  
   const dispatch = useDispatch()
 
-  /* Count app renders helper */
-  // const renderCount = useRef(0)
-  // renderCount.current += 1
-
-  /* Fetch all blogs, sort by number of likes and set the blogs array.
-  Triggered only on the first render. */
+  // Initializes blog list
   useEffect(() => {
-    blogService.getAll().then((blogs) => {
-      setBlogs(blogs.sort((x, y) => (x.likes < y.likes ? 1 : -1)))
-    })
-  }, [])
+    dispatch(initialiseBlogs())
+  }, [dispatch]) 
 
-  /* Re-renders and sorts the blogs array each time when setBlogs() method is called (when like button ckicked).
-  (Not sure if this feature is needed but here it is...) */
-  useEffect(() => {
-    setBlogs(blogs.sort((x, y) => (x.likes < y.likes ? 1 : -1)))
-  }, [blogs])
 
+  // /* Fetch all blogs, sort by number of likes and set the blogs array.
+  // Triggered only on the first render. */
+  // useEffect(() => {
+  //   blogService.getAll().then((blogs) => {
+  //     setBlogs(blogs.sort((x, y) => (x.likes < y.likes ? 1 : -1)))
+  //   })
+  // }, [])
+
+  // /* Re-renders and sorts the blogs array
+  //    when setBlogs() method is called (when like button ckicked). */
+  // useEffect(() => {
+  //   setBlogs(blogs.sort((x, y) => (x.likes < y.likes ? 1 : -1)))
+  // }, [blogs])
+
+
+  // Logs in user if token in localstorage
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
@@ -71,40 +83,40 @@ const App = () => {
     }
   }
 
-  const createBlog = async (blogObject) => {
-    // hides form after blog is created
-    blogFormRef.current.toggleVisibility()
+  // const createBlog = async (blogObject) => {
+  //   // hides form after blog is created
+  //   blogFormRef.current.toggleVisibility()
 
-    try {
-      const blog = await blogService.create(blogObject)
-      setBlogs(blogs.concat(blog))
-      dispatch(setNotification(`a new blog: ${blog.title} is added`, 5))
-    } catch (exception) {
-      console.log('BLOG VALIDATION FAILED:', exception)
-      dispatch(setNotification(`${exception.response.data.error}`, 5))
-    }
-  }
+  //   try {
+  //     const blog = await blogService.create(blogObject)
+  //     setBlogs(blogs.concat(blog))
+  //     dispatch(setNotification(`a new blog: ${blog.title} is added`, 5))
+  //   } catch (exception) {
+  //     console.log('BLOG VALIDATION FAILED:', exception)
+  //     dispatch(setNotification(`${exception.response.data.error}`, 5))
+  //   }
+  // }
 
-  const deleteBlog = async (blogID) => {
-    console.log(blogID)
-    try {
-      await blogService.remove(blogID)
-      setBlogs(blogs.filter((b) => b.id !== blogID))
-      dispatch(setNotification('Blog successfully deleted!', 5))
-    } catch (exception) {
-      console.log(exception)
-    }
-  }
+  // const deleteBlog = async (blogID) => {
+  //   console.log(blogID)
+  //   try {
+  //     await blogService.remove(blogID)
+  //     setBlogs(blogs.filter((b) => b.id !== blogID))
+  //     dispatch(setNotification('Blog successfully deleted!', 5))
+  //   } catch (exception) {
+  //     console.log(exception)
+  //   }
+  // }
 
-  const addLike = async (blogObject) => {
-    try {
-      const updatedBlog = await blogService.update(blogObject.id, blogObject)
-      // Find and replace liked blog in the blogs array
-      setBlogs(blogs.map((b) => (b.id === updatedBlog.id ? updatedBlog : b)))
-    } catch (exception) {
-      console.log(exception)
-    }
-  }
+  // const addLike = async (blogObject) => {
+  //   try {
+  //     const updatedBlog = await blogService.update(blogObject.id, blogObject)
+  //     // Find and replace liked blog in the blogs array
+  //     setBlogs(blogs.map((b) => (b.id === updatedBlog.id ? updatedBlog : b)))
+  //   } catch (exception) {
+  //     console.log(exception)
+  //   }
+  // }
 
   return (
     <div>
@@ -131,11 +143,15 @@ const App = () => {
             log out
           </button>
           <Togglable buttonLabel='add new blog' ref={blogFormRef}>
-            <BlogForm submitBlog={createBlog} />
+            {/*<BlogForm submitBlog={createBlog} />*/}
+            <BlogForm />
           </Togglable>
         </div>
       )}
 
+      <BlogList />
+
+{/*
       <h2>blogs</h2>
       {blogs.map((blog) => (
         <Blog
@@ -145,7 +161,7 @@ const App = () => {
           removeBlog={deleteBlog}
           user={user}
         />
-      ))}
+      ))}*/}
     </div>
   )
 }
