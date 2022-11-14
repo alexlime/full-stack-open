@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import blogService from '../services/blogs'
 import { setNotification } from '../reducers/notificationReducer'
 
+
 const blogSlice = createSlice({
   name: 'blogs',
   initialState: [],
@@ -11,7 +12,17 @@ const blogSlice = createSlice({
     },
     addBlog(state, action) {
       state.push(action.payload)
+    },
+    addLike(state, action) {
+      const id = action.payload
+      state.find(n => n.id === id).likes += 1
+      // state.sort((x,y) => y.like - x.likes)
+    },
+    removeBlog(state, action) {
+      const id = action.payload
+      return state.filter(blog => blog.id !== id)
     }
+
   },
 })
 
@@ -22,9 +33,10 @@ export const initialiseBlogs = () => {
   }
 }
 
-export const createBlog = (content) => {
+export const createBlog = (user, content) => {
   return async dispatch => {
     try {
+      blogService.setToken(user.token)
       const newBlog = await blogService.create(content)
       dispatch(addBlog(newBlog))
       dispatch(setNotification(`a new blog: ${newBlog.title} is added`, 5))
@@ -35,5 +47,27 @@ export const createBlog = (content) => {
   }
 }
 
-export const { setBlogs, addBlog } = blogSlice.actions
+export const likeBlog = (blog) => {
+  return async dispatch => {
+    const likedBlogObj = {
+      ...blog, likes: blog.likes + 1
+    }
+    const updatedBlog = await blogService.update(likedBlogObj)
+    dispatch(addLike(blog.id)) 
+  }
+}
+
+export const deleteBlog = (user, blog) => {
+  return async dispatch => {
+    try {
+      blogService.setToken(user.token)
+      const delResp = await blogService.remove(blog.id)
+      dispatch(removeBlog(blog.id)) 
+    } catch (exc) {
+      console.log(exc)
+    }
+  }
+}
+
+export const { setBlogs, addBlog, addLike, removeBlog } = blogSlice.actions
 export default blogSlice.reducer
