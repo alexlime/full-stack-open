@@ -1,10 +1,9 @@
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { useSelector } from 'react-redux'
 
 
-const BlogForm = ({ submitBlog }) => {
+const BlogForm = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.login)
 

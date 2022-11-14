@@ -2,15 +2,14 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { likeBlog, deleteBlog } from '../reducers/blogReducer'
 
-
-const Blog = ({blog}) => {
+const Blog = ({ blog }) => {
   const [visible, setVisible] = useState(false)
   const visibility = { display: visible ? '' : 'none' }
   const toggleVisibility = () => {
     setVisible(!visible)
   }
   const dispatch = useDispatch()
-  const user = useSelector(state => state.login)
+  const user = useSelector((state) => state.login)
 
   const handleLike = (blog) => {
     dispatch(likeBlog(blog))
@@ -36,27 +35,26 @@ const Blog = ({blog}) => {
         {blog.url}
         <br />
         <span>likes: {blog.likes}</span>{' '}
-        <button onClick={ () => handleLike(blog)}>like</button>
+        <button onClick={() => handleLike(blog)}>like</button>
         <br />
         {blog.user.name}
         <br />
         {user !== null && user.username === blog.user.username && (
-          <button onClick={ () => handleRemove(blog) }>remove</button>
+          <button onClick={() => handleRemove(blog)}>remove</button>
         )}
       </div>
     </div>
   )
 }
 
-
 const BlogList = () => {
-  const blogs = useSelector(state => state.blogs)
+  const blogs = useSelector((state) => state.blogs)
   return (
     <div>
       <h2>blogs</h2>
-      {blogs.map((blog) => 
+      {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
-      )}
+      ))}
     </div>
   )
 }
