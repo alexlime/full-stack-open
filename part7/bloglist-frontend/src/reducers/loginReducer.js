@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
-import { setNotification } from '../reducers/notificationReducer'
 
 const loginSlice = createSlice({
   name: 'login',
@@ -34,7 +33,7 @@ export const loginUser = (credentials) => {
       window.localStorage.setItem('loggedUser', JSON.stringify(loginData))
     } catch (exc) {
       console.log(exc)
-    } 
+    }
   }
 }
 

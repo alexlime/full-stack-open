@@ -53,7 +53,7 @@ export const likeBlog = (blog) => {
       ...blog, likes: blog.likes + 1
     }
     const updatedBlog = await blogService.update(likedBlogObj)
-    dispatch(addLike(blog.id)) 
+    dispatch(addLike(updatedBlog.id))
   }
 }
 
@@ -61,8 +61,8 @@ export const deleteBlog = (user, blog) => {
   return async dispatch => {
     try {
       blogService.setToken(user.token)
-      const delResp = await blogService.remove(blog.id)
-      dispatch(removeBlog(blog.id)) 
+      await blogService.remove(blog.id)
+      dispatch(removeBlog(blog.id))
     } catch (exc) {
       console.log(exc)
     }
