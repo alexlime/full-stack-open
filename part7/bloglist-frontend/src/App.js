@@ -5,12 +5,17 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
+import Users from './components/Users'
+
 import './index.css'
 
-// Redux migration imports
+// Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { initialiseBlogs } from './reducers/blogReducer'
 import { loginUserLocalStorage } from './reducers/loginReducer'
+
+// Router
+import { Routes, Route } from 'react-router-dom'
 
 const App = () => {
   const blogFormRef = useRef()
@@ -49,8 +54,11 @@ const App = () => {
           </Togglable>
         </div>
       )}
+      <Routes>
+        <Route path="/" element={ <BlogList /> } />
+        <Route path="/users" element={ <Users /> } />
+      </Routes>
 
-      <BlogList />
     </div>
   )
 }
