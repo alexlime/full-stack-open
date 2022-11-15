@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
@@ -6,6 +6,7 @@ import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 import Users from './components/Users'
+import User from './components/User'
 
 import './index.css'
 
@@ -17,10 +18,20 @@ import { loginUserLocalStorage } from './reducers/loginReducer'
 // Router
 import { Routes, Route } from 'react-router-dom'
 
+import userService from './services/users'
+
 const App = () => {
   const blogFormRef = useRef()
   const dispatch = useDispatch()
   const user = useSelector((state) => state.login)
+
+  // Initialising users state (could also use redux store)
+  const [users, setUsers] = useState(null)
+  useEffect(() => {
+    userService.getAll().then((users) => {
+      setUsers(users)
+    })
+  }, [])
 
   // Initializes blog list
   useEffect(() => {
@@ -56,9 +67,9 @@ const App = () => {
       )}
       <Routes>
         <Route path="/" element={ <BlogList /> } />
-        <Route path="/users" element={ <Users /> } />
+        <Route path="/users" element={ <Users users={users} /> } />
+        <Route path="/users/:id" element={ <User users={users} /> } />
       </Routes>
-
     </div>
   )
 }
