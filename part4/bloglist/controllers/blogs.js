@@ -85,11 +85,11 @@ blogsRouter.put('/:id', async (request, response) => {
 blogsRouter.post('/:id/comments', async (request, response) => {
   const { body } = request.body
   const blog = await Blog.findById(request.params.id)
-  console.log(blog._id)
+  // console.log(blog._id)
 
   const newComment = new Comment({
     body,
-    blog: blog._id
+    blogID: blog._id
   })
 
   const savedComment = await newComment.save()

@@ -1,6 +1,27 @@
 import { useMatch, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { likeBlog, deleteBlog } from '../reducers/blogReducer'
+import { likeBlog, deleteBlog, makeComment } from '../reducers/blogReducer'
+
+
+const Comments = ({ blog, addComment }) => {
+  return (
+    <div><br />
+      <form onSubmit={addComment}>
+        <input name='comment' placeholder='comment...' />
+        <button type='submit'>add</button>
+      </form>
+      <ul>
+        {blog.comments.map(cmnt =>
+          <li key={cmnt.id}>
+            {cmnt.body}
+            {/*<em> Added: {cmnt.date}</em>*/}
+          </li>
+        )}
+      </ul>
+    </div>
+  )
+}
+
 
 const Blog = () => {
   const match = useMatch('/blogs/:id')
@@ -18,6 +39,13 @@ const Blog = () => {
     dispatch(deleteBlog(user, blog))
     navigate('/')
   }
+
+  const handleComment = (event) => {
+    event.preventDefault()
+    dispatch(makeComment(event.target.comment.value, blog.id))
+    event.target.comment.value = ''
+  }
+
   return (
     <div>
       <h2>{blog.title}</h2>
@@ -30,15 +58,10 @@ const Blog = () => {
       {user !== null && user.username === blog.user.username && (
         <button onClick={() => handleRemove(blog)}>remove</button>
       )}
-      <h3>Comments:</h3>
-      <ul>
-        {blog.comments.map(cmnt =>
-          <li key={cmnt.id}>
-            {cmnt.body}
-            <em> Added: {cmnt.date}</em>
-          </li>
-        )}
-      </ul>
+      <Comments
+        blog={blog}
+        addComment={handleComment}
+      />
     </div>
   )
 }

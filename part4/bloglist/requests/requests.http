@@ -72,9 +72,9 @@ POST http://localhost:3003/api/testing/reset
 
 ### --------------------------------------------------------
 ### COMMENTS
-POST http://localhost:3003/api/blogs/6373e8cf8c8ce038b151072d/comments
+POST http://localhost:3003/api/blogs/6373ea4a8c8ce038b15107af/comments
 Content-Type: application/json
 
 {
-  "body": "Another comment for today!"
+  "body": "😃 Cool!"
 }

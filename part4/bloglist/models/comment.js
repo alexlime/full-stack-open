@@ -11,7 +11,7 @@ const commentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
    },
-  blog: {
+  blogID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Blog'
   }
