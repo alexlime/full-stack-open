@@ -25,14 +25,16 @@ export const loginUserLocalStorage = () => {
 }
 
 export const loginUser = (credentials) => {
-  // Logs in user and sets the state
+  // Logs in user (backend api) and sets the redux state
+  // Returns object with status and data
   return async dispatch => {
     try {
       const loginData = await loginService.login(credentials)
       dispatch(setUser(loginData))
       window.localStorage.setItem('loggedUser', JSON.stringify(loginData))
+      return { status: true, data: loginData }
     } catch (exc) {
-      console.log(exc)
+      return { status: false, data: exc }
     }
   }
 }

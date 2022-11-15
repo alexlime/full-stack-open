@@ -2,17 +2,16 @@ import { useDispatch } from 'react-redux'
 import { createBlog } from '../reducers/blogReducer'
 import { useSelector } from 'react-redux'
 
-
 const BlogForm = () => {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.login)
+  const user = useSelector((state) => state.login)
 
   const addBlog = (event) => {
     event.preventDefault()
     const content = {
       title: event.target.title.value,
       author: event.target.name.value,
-      url: event.target.url.value
+      url: event.target.url.value,
     }
     dispatch(createBlog(user, content))
     event.target.title.value = ''
@@ -26,15 +25,15 @@ const BlogForm = () => {
       <form onSubmit={addBlog}>
         <div>
           title:
-          <input name="title" placeholder='write blog title here'/>
+          <input name='title' placeholder='write blog title here' />
         </div>
         <div>
           author:
-          <input name="name" placeholder='write blog author here' />
+          <input name='name' placeholder='write blog author here' />
         </div>
         <div>
           url:
-          <input name="url" placeholder='write blog url here' />
+          <input name='url' placeholder='write blog url here' />
         </div>
         <button id='submit-blog' type='submit'>
           create

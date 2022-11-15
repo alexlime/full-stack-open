@@ -1,18 +1,17 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
-import BlogForm from './components/BlogForm'
-import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
 import Blog from './components/Blog'
 import Users from './components/Users'
 import User from './components/User'
+import Nav from './components/Nav'
 
 import './index.css'
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { initialiseBlogs } from './reducers/blogReducer'
 import { loginUserLocalStorage } from './reducers/loginReducer'
 
@@ -22,9 +21,7 @@ import { Routes, Route } from 'react-router-dom'
 import userService from './services/users'
 
 const App = () => {
-  const blogFormRef = useRef()
   const dispatch = useDispatch()
-  const user = useSelector((state) => state.login)
 
   // Initialising users state (could also use redux store)
   const [users, setUsers] = useState(null)
@@ -44,31 +41,18 @@ const App = () => {
     dispatch(loginUserLocalStorage())
   }, [])
 
+
   return (
     <div>
-      <h2>login to app</h2>
+      <Nav />
       <Notification />
-      {user === null ? (
-        <LoginForm />
-      ) : (
-        <div>
-          {user.username} logged in
-          <button
-            onClick={() => {
-              window.localStorage.clear()
-              dispatch(loginUserLocalStorage())
-            }}
-          >
-            log out
-          </button>
-          <Togglable buttonLabel='add new blog' ref={blogFormRef}>
-            <BlogForm />
-          </Togglable>
-        </div>
-      )}
+
+      <h2>Blog app</h2>
+
       <Routes>
         <Route path="/" element={ <BlogList /> } />
         <Route path="/blogs/:id" element={ <Blog /> } />
+        <Route path="/login" element={ <LoginForm /> } />
         <Route path="/users" element={ <Users users={users} /> } />
         <Route path="/users/:id" element={ <User users={users} /> } />
       </Routes>

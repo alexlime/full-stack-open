@@ -1,4 +1,10 @@
-.success {
+
+.navigation {
+  background-color: #ccc;
+  padding: 5px 10px;
+}
+
+/*.success {
   color: green;
   background: lightgrey;
   font-size: 20px;
@@ -17,3 +23,5 @@
   padding: 10px;
   margin-bottom: 10px;
 }
+
+*/
