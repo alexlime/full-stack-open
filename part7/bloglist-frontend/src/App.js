@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
 import BlogList from './components/BlogList'
+import Blog from './components/Blog'
 import Users from './components/Users'
 import User from './components/User'
 
@@ -67,6 +68,7 @@ const App = () => {
       )}
       <Routes>
         <Route path="/" element={ <BlogList /> } />
+        <Route path="/blogs/:id" element={ <Blog /> } />
         <Route path="/users" element={ <Users users={users} /> } />
         <Route path="/users/:id" element={ <User users={users} /> } />
       </Routes>
