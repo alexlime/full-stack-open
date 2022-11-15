@@ -4,15 +4,20 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const Comment = require('../models/comment')
 
 // Using middleware only for a specific routes
 const userExtractor = require('../utils/middleware').userExtractor
 
 // GET: all 
 blogsRouter.get('/', async (request, response) => {
-  const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
+  const blogs = await Blog.find({})
+    .populate('user', { username: 1, name: 1 })
+    .populate('comments', { body: 1, date: 1 })
+
   response.json(blogs)
 })
+
 
 // POST: Add new blog
 blogsRouter.post('/', userExtractor, async (request, response) => {
@@ -74,5 +79,27 @@ blogsRouter.put('/:id', async (request, response) => {
   
   response.status(200).json(updatedPopulated)
 })
+
+
+// COMMENTS
+blogsRouter.post('/:id/comments', async (request, response) => {
+  const { body } = request.body
+  const blog = await Blog.findById(request.params.id)
+  console.log(blog._id)
+
+  const newComment = new Comment({
+    body,
+    blog: blog._id
+  })
+
+  const savedComment = await newComment.save()
+
+  blog.comments = blog.comments.concat(savedComment._id)
+  await blog.save()
+
+  response.status(201).json(savedComment)
+})
+
+
 
 module.exports = blogsRouter

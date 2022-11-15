@@ -18,7 +18,6 @@ const Blog = () => {
     dispatch(deleteBlog(user, blog))
     navigate('/')
   }
-
   return (
     <div>
       <h2>{blog.title}</h2>
@@ -31,6 +30,15 @@ const Blog = () => {
       {user !== null && user.username === blog.user.username && (
         <button onClick={() => handleRemove(blog)}>remove</button>
       )}
+      <h3>Comments:</h3>
+      <ul>
+        {blog.comments.map(cmnt =>
+          <li key={cmnt.id}>
+            {cmnt.body}
+            <em> Added: {cmnt.date}</em>
+          </li>
+        )}
+      </ul>
     </div>
   )
 }

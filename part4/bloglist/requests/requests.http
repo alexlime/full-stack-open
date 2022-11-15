@@ -67,3 +67,14 @@ Content-Type: application/json
 
 ### TESTING reset testing database
 POST http://localhost:3003/api/testing/reset
+
+
+
+### --------------------------------------------------------
+### COMMENTS
+POST http://localhost:3003/api/blogs/6373e8cf8c8ce038b151072d/comments
+Content-Type: application/json
+
+{
+  "body": "Another comment for today!"
+}
