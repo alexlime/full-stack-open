@@ -5,6 +5,11 @@ import { loginUser } from '../reducers/loginReducer'
 
 import { setNotification } from '../reducers/notificationReducer'
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+
 const LoginForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -38,22 +43,30 @@ const LoginForm = () => {
   }
 
   return (
-    <>
+    <Col lg={{ span: 8 }} style={{ marginTop: '20px' }}>
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input name='username' placeholder='username...' />
-        </div>
-        <div>
-          password
-          <input type='password' name='password' placeholder='password...' />
-        </div>
-        <button id='login-button' type='submit'>
+
+      <Form onSubmit={handleLogin}>
+
+        <Form.Group as={Row} className='mb-3' controlId='username' name='username'>
+          <Form.Label column sm='2'>username:</Form.Label>
+          <Col sm='6'>
+            <Form.Control type='text' placeholder='your username...' />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className='mb-3' controlId='password' name='password'>
+          <Form.Label column sm='2'>password:</Form.Label>
+          <Col sm='6'>
+            <Form.Control type='password' placeholder='your password...' />
+          </Col>
+        </Form.Group>
+
+        <Button variant='primary' size='sm' type='submit'>
           login
-        </button>
-      </form>
-    </>
+        </Button>
+      </Form>
+    </Col>
   )
 }
 

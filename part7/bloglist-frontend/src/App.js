@@ -6,7 +6,8 @@ import BlogList from './components/BlogList'
 import Blog from './components/Blog'
 import Users from './components/Users'
 import User from './components/User'
-import Nav from './components/Nav'
+import Navigation from './components/Navigation'
+import BlogForm from './components/BlogForm'
 
 import './index.css'
 
@@ -43,16 +44,15 @@ const App = () => {
 
 
   return (
-    <div>
-      <Nav />
+    <div className="container">
+      <Navigation />
       <Notification />
-
-      <h2>Blog app</h2>
 
       <Routes>
         <Route path="/" element={ <BlogList /> } />
         <Route path="/blogs/:id" element={ <Blog /> } />
         <Route path="/login" element={ <LoginForm /> } />
+        <Route path="/create" element={ <BlogForm /> } />
         <Route path="/users" element={ <Users users={users} /> } />
         <Route path="/users/:id" element={ <User users={users} /> } />
       </Routes>

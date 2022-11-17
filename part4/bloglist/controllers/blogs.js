@@ -13,8 +13,14 @@ const userExtractor = require('../utils/middleware').userExtractor
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({})
     .populate('user', { username: 1, name: 1 })
-    .populate('comments', { body: 1, date: 1 })
-
+    .populate({
+      path: 'comments',
+      select: ['body', 'date'],
+      options : {
+        sort: {'date': -1}
+      }
+    })
+  // console.log(blogs[0].comments)
   response.json(blogs)
 })
 
@@ -85,7 +91,6 @@ blogsRouter.put('/:id', async (request, response) => {
 blogsRouter.post('/:id/comments', async (request, response) => {
   const { body } = request.body
   const blog = await Blog.findById(request.params.id)
-  // console.log(blog._id)
 
   const newComment = new Comment({
     body,

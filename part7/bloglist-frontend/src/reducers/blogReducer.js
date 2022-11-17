@@ -24,7 +24,11 @@ const blogSlice = createSlice({
     },
     addComment(state, action) {
       const blogID = action.payload.blogID
-      state.find(blog => blog.id === blogID).comments.push(action.payload)
+      const comments = state.find(blog => blog.id === blogID).comments
+      /* Api returns comments sorted by date desc,
+      so we prepend (unshift) each comment to the state */
+      comments.unshift(action.payload)
+
     }
   },
 })
@@ -33,7 +37,7 @@ const blogSlice = createSlice({
 export const makeComment = (comment, blogID) => {
   return async dispatch => {
     const addedComment = await blogService.comment(comment, blogID)
-    console.log(addedComment)
+    // console.log(addedComment)
     dispatch(addComment(addedComment))
     dispatch(setNotification(`Comment: ${addedComment.body} is added`, 5))
   }

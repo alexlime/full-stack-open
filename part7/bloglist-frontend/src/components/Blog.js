@@ -2,26 +2,39 @@ import { useMatch, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { likeBlog, deleteBlog, makeComment } from '../reducers/blogReducer'
 
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import Badge from 'react-bootstrap/Badge'
+import InputGroup from 'react-bootstrap/InputGroup'
+import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const Comments = ({ blog, addComment }) => {
   return (
-    <div><br />
-      <form onSubmit={addComment}>
-        <input name='comment' placeholder='comment...' />
-        <button type='submit'>add</button>
-      </form>
-      <ul>
-        {blog.comments.map(cmnt =>
-          <li key={cmnt.id}>
+    <div>
+      <br />
+
+      <Form onSubmit={addComment}>
+        <InputGroup className='mb-3'>
+          <Form.Control name='comment' placeholder='your comment...' />
+          <Button type='submit' variant='primary' id='button-addon2'>
+            Submit
+          </Button>
+        </InputGroup>
+      </Form>
+
+      <ListGroup variant='flush'>
+        {blog.comments.map((cmnt) => (
+          <ListGroup.Item key={cmnt.id}>
             {cmnt.body}
             {/*<em> Added: {cmnt.date}</em>*/}
-          </li>
-        )}
-      </ul>
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
     </div>
   )
 }
-
 
 const Blog = () => {
   const match = useMatch('/blogs/:id')
@@ -47,22 +60,37 @@ const Blog = () => {
   }
 
   return (
-    <div>
-      <h2>{blog.title}</h2>
-      <a href={blog.url}>{blog.url}</a>
-      <div>
-        <span>{blog.likes} likes</span>
-        <button onClick={() => dispatch(likeBlog(blog))}>like</button>
-      </div>
-      <div>added by {blog.user.name}</div>
-      {user !== null && user.username === blog.user.username && (
-        <button onClick={() => handleRemove(blog)}>remove</button>
-      )}
-      <Comments
-        blog={blog}
-        addComment={handleComment}
-      />
-    </div>
+    <Col lg={{ span: 8 }} style={{ marginTop: '20px' }}>
+      <Card>
+        <Card.Body>
+          <Card.Title>{blog.title}</Card.Title>
+          <Card.Subtitle className='mb-2 text-muted'>
+            added by {blog.user.name}
+          </Card.Subtitle>
+          <Card.Link href={blog.url}>{blog.url}</Card.Link>
+          <div style={{ marginTop: '20px' }}>
+            <Button
+              variant='primary'
+              size='sm'
+              onClick={() => dispatch(likeBlog(blog))}>
+              Like{' '}
+              <Badge bg='light' text='dark'>
+                {blog.likes}
+              </Badge>
+            </Button>{' '}
+            {user !== null && user.username === blog.user.username && (
+              <Button
+                size='sm'
+                variant='danger'
+                onClick={() => handleRemove(blog)}>
+                remove
+              </Button>
+            )}
+          </div>
+        </Card.Body>
+      </Card>
+      <Comments blog={blog} addComment={handleComment} />
+    </Col>
   )
 }
 

@@ -1,4 +1,4 @@
-# Full Stack open 2022: submitted apps/exercices 
+# Full Stack open 2022: submitted apps/exercices
 
 > [fullstackopen.com](https://fullstackopen.com/en)
 
@@ -73,6 +73,7 @@
 
 - [ ] **Part 7 React router, custom hooks, styling app with CSS and webpack**
   - Completed apps:
+    - *bloglist-frontend*
     - *routed-anecdotes*
     - *country-hook*
     - *ultimate-hooks*
@@ -80,4 +81,8 @@
     - Implementing React router:
       -  Parameterised routes 
       - `useMatch`, `useParams` and `useNavigate` hooks
-      - Custom hooks
+    - Custom hooks
+    - CSS Styles and UI libraries
+    - Class Components
+    - Webpack: bundling minimal React app 
+    - Refactoring *bloglist-frontend* app from part5 to use Redux, React Router, UI library

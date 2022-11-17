@@ -1,35 +1,27 @@
-import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import BlogForm from './BlogForm'
-import Togglable from './Togglable'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Badge from 'react-bootstrap/Badge'
+import Col from 'react-bootstrap/Col'
 
 const BlogList = () => {
   const blogs = useSelector((state) => state.blogs)
-  const user = useSelector((state) => state.login)
-  const blogFormRef = useRef()
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5,
-  }
   return (
     <div>
-      {user ? (
-        <Togglable buttonLabel='add new blog' ref={blogFormRef}>
-          <BlogForm />
-        </Togglable>
-      ) : null}
-
-      {blogs.map((blog) => (
-        <div style={blogStyle} key={blog.id}>
-          <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-        </div>
-      ))}
+      <ListGroup as={Col} lg={{ span: 8 }} variant='flush' style={{ marginTop: '20px' }}>
+        {blogs.map((blog) => (
+          <ListGroup.Item
+            key={blog.id}
+            className='d-flex justify-content-between align-items-start'>
+            <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+            <Badge pill bg='primary'>
+              {blog.user.username}
+            </Badge>
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
     </div>
   )
 }

@@ -1,4 +1,6 @@
 import { useMatch } from 'react-router-dom'
+import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const User = ({ users }) => {
   const match = useMatch('/users/:id')
@@ -7,20 +9,19 @@ const User = ({ users }) => {
     return null
   }
 
-  const user = users.find(user => user.id === match.params.id)
+  const user = users.find((user) => user.id === match.params.id)
 
   return (
-    <div>
+    <Col lg={{ span: 8 }} style={{ marginTop: '20px' }}>
       <h2>{user.name}</h2>
-      <h3>added blogs</h3>
-      <ul>
-        {user.blogs.map(blog =>
-          <li key={blog.id}>{blog.title}</li>
-        )}
-      </ul>
-    </div>
+      <h4>Added blogs:</h4>
+      <ListGroup style={{ marginTop: '20px' }}>
+        {user.blogs.map((blog) => (
+          <ListGroup.Item key={blog.id}>{blog.title}</ListGroup.Item>
+        ))}
+      </ListGroup>
+    </Col>
   )
-
 }
 
 export default User
