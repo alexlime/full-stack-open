@@ -85,7 +85,7 @@
     - Webpack: bundling minimal React app 
     - *bloglist-frontend* app (*from part5*) refactored with Redux, React Router, UI library
 
-#### ☑️ **Part 8 GraphQL**
+#### **Part 8 GraphQL**
   - Completed apps:
     - *...*
     - *...*
