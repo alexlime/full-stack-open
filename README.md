@@ -2,13 +2,13 @@
 
 > [fullstackopen.com](https://fullstackopen.com/en)
 
-- [x] **Part 0 Fundamentals of Web apps**
+#### ☑️ **Part 0 Fundamentals of Web apps**
   - Completed diagrams depicting the situations where the user creates a new note on the traditional [web page](https://studies.cs.helsinki.fi/exampleapp/notes) and [single page app](https://studies.cs.helsinki.fi/exampleapp/spa)
   - Main topics:
     - Traditional web apps vs single page apps
     - Basic concepts, e.g., event handlers and callbacks, DOM, forms and HTTP requests, etc.
 
-- [x] **Part 1 Introduction to React**
+#### ☑️ **Part 1 Introduction to React**
   - Completed React apps:
     - *anecdotes* 
     - *courseinfo*
@@ -17,7 +17,7 @@
     - Passing data, state and event handlers to the child components
     - Complex state, hooks and re-rendering
 
-- [x] **Part 2: Communicating with server**
+### ☑️ **Part 2: Communicating with server**
   - Completed React apps:
     - *countries* (using external API)
     - *courseinfo* 
@@ -29,7 +29,7 @@
     - Promises and errors
     - Adding styles
 
-- [x] **Part 3 Programming a server with NodeJS and Express**
+#### ☑️ **Part 3 Programming a server with NodeJS and Express**
   - Completed apps:
     - *phonebook* (React app)
     - *phonebook-backend* [app deployed to Heroku](https://tranquil-savannah-80727.herokuapp.com)
@@ -41,7 +41,7 @@
     - Frontend production build
     - ESlint, validation and notifications
 
-- [x] **Part 4 Testing Express servers, user administration**
+#### ☑️ **Part 4 Testing Express servers, user administration**
   - Completed apps:
     - *bloglist* (backend app)
   - Main topics:
@@ -51,7 +51,7 @@
     - Mongoose populate method (join queries)
     - Token administration 
 
-- [x] **Part 5 Testing React apps**
+#### ☑️ **Part 5 Testing React apps**
   - Completed apps:
     - *bloglist-frontend*
   - Main topics:
@@ -60,7 +60,7 @@
     - Unit testing with Jest and [react-testing-library](https://github.com/testing-library/react-testing-library)
     - End to end testing with [cypress](https://www.cypress.io/)
 
-- [x] **Part 6 State management with Redux**
+#### ☑️ **Part 6 State management with Redux**
   - Completed apps:
     - *unicafe-redux*
     - *redux-anecdotes*
@@ -71,18 +71,25 @@
       - redux thunk and async actions
     - Using redux-store with newer hook api and older `connect` function provided by react-redux
 
-- [ ] **Part 7 React router, custom hooks, styling app with CSS and webpack**
+#### ☑️ **Part 7 React router, custom hooks, styling app with CSS and webpack**
   - Completed apps:
     - *bloglist-frontend*
     - *routed-anecdotes*
     - *country-hook*
     - *ultimate-hooks*
   - Main topics: 
-    - Implementing React router:
-      -  Parameterised routes 
-      - `useMatch`, `useParams` and `useNavigate` hooks
+    - Implementing React router. Parameterised routes, `useMatch`, `useParams` and `useNavigate` hooks.
     - Custom hooks
     - CSS Styles and UI libraries
     - Class Components
     - Webpack: bundling minimal React app 
-    - Refactoring *bloglist-frontend* app from part5 to use Redux, React Router, UI library
+    - *bloglist-frontend* app (*from part5*) refactored with Redux, React Router, UI library
+
+#### ☑️ **Part 8 GraphQL**
+  - Completed apps:
+    - *...*
+    - *...*
+
+  - Main topics: 
+    - ...
+    - ...
