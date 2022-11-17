@@ -17,7 +17,7 @@
     - Passing data, state and event handlers to the child components
     - Complex state, hooks and re-rendering
 
-### ☑️ **Part 2: Communicating with server**
+#### ☑️ **Part 2: Communicating with server**
   - Completed React apps:
     - *countries* (using external API)
     - *courseinfo* 
