@@ -93,16 +93,61 @@ let books = [
 ]
 
 const typeDefs = gql`
+  type Book {
+    title: String!
+    author: String!
+    published: String!
+    genres: [String]
+  }
+
+  type Author {
+    name: String!
+    bookCount: Int!
+  }
+
   type Query {
     bookCount: Int!
     authorCount: Int!
+    allBooks(author: String, genre: String): [Book!]!
+    allAuthors: [Author!]!
   }
 `
 
 const resolvers = {
   Query: {
     bookCount: () => books.length,
-    authorCount: () => authors.length
+    authorCount: () => authors.length,
+    allBooks: (root, args) => {
+      // May be a shorter way to do it...
+      if (!args.author && !args.genre) { // no args
+        return books
+      }
+      if (args.author && args.genre) { // both args
+        const byAuthor = books.filter(b => b.author === args.author)
+        const byAuthorGenre = byAuthor.filter(b => b.genres.includes(args.genre))
+        console.log('both', byAuthorGenre)
+        return byAuthorGenre
+      }
+      if (args.genre) { // only genre
+        const byGenre = books.filter(b => b.genres.includes(args.genre))
+        console.log('only genre', byGenre)
+        return byGenre
+      }
+      if (args.author) { // only author
+        const byAuthor = books.filter(b => b.author === args.author)
+        console.log('only author', byAuthor)
+        return byAuthor
+      }
+
+    },
+    allAuthors: () => authors
+  },
+  Author: { // Altering default resolver
+    name: (root) => root.name,
+    bookCount: (root) => {
+      const booksByAuthor = books.filter(b => b.author === root.name)
+      return booksByAuthor.length
+    }
   }
 }
 
