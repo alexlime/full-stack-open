@@ -121,6 +121,10 @@ const typeDefs = gql`
       published: Int!
       genres: [String]
     ): Book
+    editAuthor(
+      name: String!
+      setBornTo: Int!
+    ): Author
   }
 `
 
@@ -172,9 +176,21 @@ const resolvers = {
       const book = {...args}
       books = books.concat(book)
       return book
+    },
+    editAuthor: (root, args) => {
+      const author = authors.find(a => a.name === args.name)
+      if (!author) {
+        return null
+      }
+      const updatedAuthor = {...author, born: args.setBornTo}
+      // update birth year of author in autors array
+      authors = authors.map(x => x.id !== updatedAuthor.id ? x : updatedAuthor)
+      // console.log(authors.find(a => a.name === args.name))
+      return updatedAuthor
     }
   }
 }
+
 // console.log(authors)
 
 const server = new ApolloServer({
