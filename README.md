@@ -1,4 +1,5 @@
-# Full Stack open 2022: submitted apps/exercices
+# Full Stack open 2022: completed apps
+React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
 
 > [fullstackopen.com](https://fullstackopen.com/en)
 
@@ -87,9 +88,12 @@
 
 #### **Part 8 GraphQL**
   - Completed apps:
-    - *...*
-    - *...*
+    - *library-frontend* (React app for GraphQL)
+    - *library-backend* (GraphQL and Apollo server app)
 
   - Main topics: 
-    - ...
+    - Implementing GraphQL using Apollo Server library
+    - GraphQL schema, queries, resolvers, mutations, error handling
+    - React and GraphQL, application state
+    - Mongoose and Apollo, user log in
     - ...
