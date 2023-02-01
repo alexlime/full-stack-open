@@ -3,13 +3,12 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
 
 > [fullstackopen.com](https://fullstackopen.com/en)
 
-#### ☑️ **Part 0 Fundamentals of Web apps**
-  - Completed diagrams depicting the situations where the user creates a new note on the traditional [web page](https://studies.cs.helsinki.fi/exampleapp/notes) and [single page app](https://studies.cs.helsinki.fi/exampleapp/spa)
+#### **Part 0 Fundamentals of Web apps**
   - Main topics:
     - Traditional web apps vs single page apps
     - Basic concepts, e.g., event handlers and callbacks, DOM, forms and HTTP requests, etc.
 
-#### ☑️ **Part 1 Introduction to React**
+#### **Part 1 Introduction to React**
   - Completed React apps:
     - *anecdotes* 
     - *courseinfo*
@@ -18,7 +17,7 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Passing data, state and event handlers to the child components
     - Complex state, hooks and re-rendering
 
-#### ☑️ **Part 2: Communicating with server**
+#### **Part 2: Communicating with server**
   - Completed React apps:
     - *countries* (using external API)
     - *courseinfo* 
@@ -30,7 +29,7 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Promises and errors
     - Adding styles
 
-#### ☑️ **Part 3 Programming a server with NodeJS and Express**
+#### **Part 3 Programming a server with NodeJS and Express**
   - Completed apps:
     - *phonebook* (React app)
     - *phonebook-backend* [app deployed to Heroku](https://tranquil-savannah-80727.herokuapp.com)
@@ -42,7 +41,7 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Frontend production build
     - ESlint, validation and notifications
 
-#### ☑️ **Part 4 Testing Express servers, user administration**
+#### **Part 4 Testing Express servers, user administration**
   - Completed apps:
     - *bloglist* (backend app)
   - Main topics:
@@ -52,7 +51,7 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Mongoose populate method (join queries)
     - Token administration 
 
-#### ☑️ **Part 5 Testing React apps**
+#### **Part 5 Testing React apps**
   - Completed apps:
     - *bloglist-frontend*
   - Main topics:
@@ -61,7 +60,7 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Unit testing with Jest and [react-testing-library](https://github.com/testing-library/react-testing-library)
     - End to end testing with [cypress](https://www.cypress.io/)
 
-#### ☑️ **Part 6 State management with Redux**
+#### **Part 6 State management with Redux**
   - Completed apps:
     - *unicafe-redux*
     - *redux-anecdotes*
@@ -72,7 +71,7 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
       - redux thunk and async actions
     - Using redux-store with newer hook api and older `connect` function provided by react-redux
 
-#### ☑️ **Part 7 React router, custom hooks, styling app with CSS and webpack**
+#### **Part 7 React router, custom hooks, styling app with CSS and webpack**
   - Completed apps:
     - *bloglist-frontend*
     - *routed-anecdotes*
