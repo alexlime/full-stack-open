@@ -74,18 +74,28 @@ mutation {
     author
   }
 }
-
 mutation {
   addBook(
-    title: "Pimeyden tango",
-    author: "Reijo Mäki",
-    published: 1997,
-    genres: ["crime"]
+    title: "1984",
+    author: "George Orwell",
+    published: 1949,
+    genres: ["dystopia"]
   ) {
-    title,
+    title
     author
   }
 }
+mutation {
+  addBook(
+    title: "The Secret History",
+    author: "Donna Tartt",
+    published: 1992,
+    genres: ["novel"]
+  ) {
+    title
+  }
+}
+
 
 query {
   allAuthors {
