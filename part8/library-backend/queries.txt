@@ -82,6 +82,20 @@ mutation {
     title
   }
 }
+mutation {
+  addBook(
+    title: "The goldfinch",
+    author: "Donna Tartt",
+    published: 2013,
+    genres: ["novel", "Thriller"]
+  ) {
+    title,
+    author {
+      name
+    }
+  }
+}
+
 
 mutation EditAuthor {
   editAuthor(
@@ -92,8 +106,6 @@ mutation EditAuthor {
       born
     }
 }
-
-
 
 
 -------------------------------------------

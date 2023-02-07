@@ -95,4 +95,4 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - GraphQL schema, queries, resolvers, mutations, error handling
     - React and GraphQL, application state
     - Mongoose and Apollo, user log in
-    - ...
+    - Using mongoDB transactions: writing to multiple documents
