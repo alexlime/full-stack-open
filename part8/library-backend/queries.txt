@@ -1,67 +1,56 @@
-# Queries from exercises
+# Queries
 
-ex 8.1
 
-query {
-  bookCount
-  authorCount
-}
-
--------------------------------------------
-ex8.2
-
-query {
-  allBooks {
+query AllBooks {
+  allBooks{
     title
-    author
-    published
     genres
+    author {
+      name
+    }
   }
 }
+
+query AllBooks {
+  allBooks(
+    author: "George Orwell"
+  ) {
+    title
+    genres
+    author {
+      name
+    }
+  }
+}
+
+query AllBooks {
+  allBooks(
+    genre: "dystopia"
+  ) {
+    title
+    genres
+    author {
+      name
+    }
+  }
+}
+
+query AllBooks {
+  allBooks(
+    author: "George Orwell",
+    genre: "dystopia"
+  ) {
+    title
+    genres
+    author {
+      name
+    }
+  }
+}
+
 
 -------------------------------------------
-ex8.3
 
-query {
-  allAuthors {
-    name
-    bookCount
-  }
-}
-
--------------------------------------------
-ex8.4-8.5
-
-query AllBooks {
-  allBooks {
-    title
-    author
-  }
-}
-
-query AllBooks {
-  allBooks(author: "Robert Martin", genre: "refactoring") {
-    title
-    author
-  }
-}
-
-query AllBooks {
-  allBooks(author: "Robert Martin") {
-    title
-    author
-  }
-}
-
-query AllBooks {
-  allBooks(genre: "refactoring") {
-    title
-    author
-  }
-}
-
--------------------------------------------
-ex 8.6
 
 mutation {
   addBook(
@@ -96,16 +85,19 @@ mutation {
   }
 }
 
-
-query {
-  allAuthors {
-    name
-    born
-    bookCount
-  }
+mutation EditAuthor {
+  editAuthor(
+    name: "George Orwell",
+    setBornTo: 1903
+    ) {
+      name
+      born
+    }
 }
 
+
+
+
 -------------------------------------------
-ex8.7
 
 
