@@ -1,5 +1,7 @@
-const { ApolloServer, UserInputError, gql } = require('apollo-server')
-const { v4: uuid } = require('uuid')
+const { ApolloServer } = require('@apollo/server')
+const { startStandaloneServer } = require('@apollo/server/standalone')
+
+const { GraphQLError } = require('graphql')
 
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
@@ -21,7 +23,7 @@ mongoose
   })
 
 
-const typeDefs = gql`
+const typeDefs = `
   type Book {
     title: String!
     published: Int!
@@ -95,23 +97,40 @@ const resolvers = {
   },
   Mutation: {
     addBook: async (root, args) => {
-      // Create new author or fetch existing:
-      let author = await Author.findOne({name: args.author})
-      if (!author) { // no author, create new
-        author = new Author({name: args.author})
-        try {
-          await author.save()
-        } catch (err) {
-          console.log('Error saving an author', err)
-        }
-      }
+      let session, book
 
-      // add a book with new or existing author
-      const book = new Book({...args, author: author})
       try {
-        await book.save()
-      } catch (err) {
-        console.log('ERROR saving a book', err)
+        session = await mongoose.startSession()
+        session.startTransaction()
+
+        let author = await Author.findOne({name: args.author}).session(session)
+        if (!author) { // no author, create new
+          author = new Author({name: args.author})
+          await author.save({ session })
+        }
+
+        book = new Book({...args, author: author})
+        await book.save({ session })
+
+        await session.commitTransaction()
+
+      } catch (error) {
+        console.error(`Error saving book and author: ${error}`)
+        if (session) {
+          await session.abortTransaction()
+        }
+        throw new GraphQLError('Saving book and author failed', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+            invalidArgs: {author: args.author, title: args.title},
+            errorMessage: error.message
+          }
+        })
+
+      } finally {
+        if (session) {
+          session.endSession()
+        }
       }
 
       return book
@@ -125,8 +144,12 @@ const resolvers = {
       try {
         await author.save()
       } catch (error) {
-        throw new UserInputError(error.message, {
-          invalidArgs: args,
+        throw new GraphQLError('Saving author born year failed', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+            invalidArgs: args.setBornTo,
+            errorMessage: error.message
+          }
         })
       }
       return author
@@ -139,6 +162,8 @@ const server = new ApolloServer({
   resolvers,
 })
 
-server.listen().then(({ url }) => {
+startStandaloneServer(server, {
+  listen: { port: 4000 },
+}).then(({ url }) => {
   console.log(`Server ready at ${url}`)
 })

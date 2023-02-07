@@ -59,8 +59,7 @@ mutation {
     published: 2012,
     genres: ["database", "nosql"]
   ) {
-    title,
-    author
+    title
   }
 }
 mutation {
@@ -71,7 +70,6 @@ mutation {
     genres: ["dystopia"]
   ) {
     title
-    author
   }
 }
 mutation {
