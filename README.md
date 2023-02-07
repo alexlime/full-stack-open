@@ -9,20 +9,20 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Basic concepts, e.g., event handlers and callbacks, DOM, forms and HTTP requests, etc.
 
 #### **Part 1 Introduction to React**
-  - Completed React apps:
+  - React apps:
     - *anecdotes* 
     - *courseinfo*
     - *unicafe*
-  - Main topics:
+  - Topics:
     - Passing data, state and event handlers to the child components
     - Complex state, hooks and re-rendering
 
 #### **Part 2: Communicating with server**
-  - Completed React apps:
+  - React apps:
     - *countries* (using external API)
     - *courseinfo* 
     - *phonebook* 
-  - Main topics:
+  - Topics:
     - Rendering collections and forms 
     - Effect-hooks
     - Getting and altering data in server using [json-server](https://github.com/typicode/json-server) (fake REST API)
@@ -30,10 +30,10 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Adding styles
 
 #### **Part 3 Programming a server with NodeJS and Express**
-  - Completed apps:
+  - Apps:
     - *phonebook* (React app)
     - *phonebook-backend* [app deployed to Heroku](https://tranquil-savannah-80727.herokuapp.com)
-  - Main topics:
+  - Topics:
     - Usng express and implementing REST api
     - Setting up middleware
     - Deploying to Heroku
@@ -42,9 +42,9 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - ESlint, validation and notifications
 
 #### **Part 4 Testing Express servers, user administration**
-  - Completed apps:
+  - Apps:
     - *bloglist* (backend app)
-  - Main topics:
+  - Topics:
     - Integration tests for the backend app using [Jest](https://jestjs.io/) and [supertest](https://github.com/visionmedia/supertest)  
     - async/await and eliminating try/catch structure 
     - User administration (creating users, mongoose schema for users)
@@ -52,19 +52,19 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Token administration 
 
 #### **Part 5 Testing React apps**
-  - Completed apps:
+  - Apps:
     - *bloglist-frontend*
-  - Main topics:
+  - Topics:
     - Handling login with React, token authentication and localstorage (unsing *bloglist* backend app api from part 4) 
     - Handling blogs (create, delete, like button, etc.)
     - Unit testing with Jest and [react-testing-library](https://github.com/testing-library/react-testing-library)
     - End to end testing with [cypress](https://www.cypress.io/)
 
 #### **Part 6 State management with Redux**
-  - Completed apps:
+  - Apps:
     - *unicafe-redux*
     - *redux-anecdotes*
-  - Main topics:
+  - Topics:
     - Implementing reducer and its tests, action creators and uncontrolled forms
     - Using Redux Toolkit
       - communicating with server in a redux app
@@ -72,12 +72,12 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Using redux-store with newer hook api and older `connect` function provided by react-redux
 
 #### **Part 7 React router, custom hooks, styling app with CSS and webpack**
-  - Completed apps:
+  - Apps:
     - *bloglist-frontend*
     - *routed-anecdotes*
     - *country-hook*
     - *ultimate-hooks*
-  - Main topics: 
+  - Topics: 
     - Implementing React router. Parameterised routes, `useMatch`, `useParams` and `useNavigate` hooks.
     - Custom hooks
     - CSS Styles and UI libraries
@@ -86,11 +86,11 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - *bloglist-frontend* app (*from part5*) refactored with Redux, React Router, UI library
 
 #### **Part 8 GraphQL**
-  - Completed apps:
+  - Apps:
     - *library-frontend* (React app for GraphQL)
     - *library-backend* (GraphQL and Apollo server app)
 
-  - Main topics: 
+  - Topics: 
     - Implementing GraphQL using Apollo Server library
     - GraphQL schema, queries, resolvers, mutations, error handling
     - React and GraphQL, application state
