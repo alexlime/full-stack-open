@@ -4,10 +4,6 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
 > [fullstackopen.com](https://fullstackopen.com/en)
 
 #### **Part 0 Fundamentals of Web apps**
-  - Main topics:
-    - Traditional web apps vs single page apps
-    - Basic concepts, e.g., event handlers and callbacks, DOM, forms and HTTP requests, etc.
-
 #### **Part 1 Introduction to React**
   - React apps:
     - *anecdotes* 
