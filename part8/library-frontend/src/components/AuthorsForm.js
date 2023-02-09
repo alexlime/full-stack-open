@@ -12,12 +12,14 @@ const AuthorsForm = () => {
 
   const [changeBirth] = useMutation(EDIT_AUTHOR, {
     refetchQueries: [ { query: ALL_AUTHORS } ],
+    onError: (error) => {
+      console.log(error.graphQLErrors[0])
+    },
   })
 
   const submit = (event) => {
     event.preventDefault()
-    console.log(name)
-    changeBirth({ variables: { name, setBornTo } })
+    changeBirth({ variables: { name, setBornTo: parseInt(setBornTo) }})
     setName('')
     setBorn('')
   }
@@ -43,8 +45,9 @@ const AuthorsForm = () => {
         />
         <div>
           born <input
+            type="number"
             value={setBornTo}
-            onChange={({ target }) => setBorn(parseInt(target.value))}
+            onChange={({ target }) => setBorn(target.value)}
           />
         </div>
         <button type='submit'>update author</button>
