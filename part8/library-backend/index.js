@@ -64,6 +64,7 @@ const typeDefs = `
       published: Int!
       genres: [String!]!
     ): Book!
+    deleteBook(title: String!): Book
     editAuthor(name: String!, setBornTo: Int!): Author
     createUser(username: String!, favouriteGenre: String!): User
     login(username: String!, password: String!): Token
@@ -114,6 +115,34 @@ const resolvers = {
     }
   },
   Mutation: {
+    deleteBook: async (root, args, context) => {
+      // Check for auth token
+      const currentUser = context.currentUser
+      if (!currentUser) {
+        throw new GraphQLError('not authenticated', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+          }
+        })
+      }
+      const book = await Book.findOne({ title: args.title })
+      if (!book) { return null }
+
+
+      try {
+        await book.remove()
+      } catch (error) {
+        throw new GraphQLError('Deleting book failed', {
+          extensions: {
+            code: 'BAD_USER_INPUT',
+            invalidArgs: args.title,
+            errorMessage: error.message
+          }
+        })
+      }
+      return book
+
+    },
     addBook: async (root, args, context) => {
       // Check for auth token
       const currentUser = context.currentUser
