@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { ALL_BOOKS, DELETE_BOOK, ALL_AUTHORS } from '../queries'
 
@@ -8,8 +8,7 @@ const genres = (x) => {
 
 const Books = ({ show }) => {
   const [filter, setFilter] = useState('')
-  // const [delTitle, setDelTitle] = useState(null)
-  const genresRef = useRef([])
+  const [genres, setGenres] = useState([])
 
   const result = useQuery(ALL_BOOKS, {
     variables: { genre: filter }
@@ -22,28 +21,27 @@ const Books = ({ show }) => {
     ]
   })
 
-  const del = (delTitle) => deleteBook({ variables : {title: delTitle} })
+  useEffect(() => {
+    if (result.data && filter === '') {
+    /* Extracting distinct genres from array of book objects
+       map() returns two dimensional array,
+       flat() converts to one dimensional array and pases into set,
+       set is deconstruct into new array without duplicates */
+      setGenres([...new Set(result.data.allBooks.map(i => i.genres).flat())])
+    }
+  }, [result])
 
+  const del = (delTitle) => deleteBook({ variables : {title: delTitle} })
 
   if (!show) {
     return null
   }
 
-  if (result.loading) {
+  if (result.loading || result.loading) {
     return <div>loading...</div>
   }
 
   const books = result.data.allBooks
-
-  /* Using useRef hook to save genres from initial ALL_BOOKS query call
-     ignore named ALL_BOOKS query calls from filter */
-  if (genresRef.current.length === 0) {
-    /* Extracting distinct genres from array of book objects
-       map() returns two dimensional array,
-       flat() converts to one dimensional array and pases it into set,
-       set is deconstruct into new array without duplicates */
-    genresRef.current = [...new Set(books.map(i => i.genres).flat())]
-  }
 
   return (
     <div>
@@ -51,7 +49,7 @@ const Books = ({ show }) => {
       <div>
         <span>filter: </span>
         <button onClick={() => setFilter('')}>all genres</button>
-        {genresRef.current.map((genre) => (
+        {genres.map((genre) => (
           <button key={genre} onClick={() => setFilter(genre)}>{genre}</button>
         ))}
       </div>

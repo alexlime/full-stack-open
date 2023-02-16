@@ -103,7 +103,16 @@ const resolvers = {
     },
     allAuthors: async () => await Author.find({}),
     me: (root, args, context) => {
-      console.log('context:', context)
+      // Check for auth token
+      // const currentUser = context.currentUser
+      // if (!currentUser) {
+      //   throw new GraphQLError('ME QUERY not authenticated', {
+      //     extensions: {
+      //       code: 'BAD_USER_INPUT',
+      //     }
+      //   })
+      // }
+      // console.log('me query context:', context)
       return context.currentUser
     }
   },

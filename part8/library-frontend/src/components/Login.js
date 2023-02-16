@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
-import { LOGIN } from '../queries'
+import { LOGIN, ME, ALL_BOOKS } from '../queries'
 
 const Login = ({ show, setError, setToken, setPage }) => {
   const [username, setUsername] = useState('alexlime')
@@ -16,7 +16,7 @@ const Login = ({ show, setError, setToken, setPage }) => {
       const token = result.data.login.value
       setToken(token)
       localStorage.setItem('library-user-token', token)
-      setPage('authors') // go to authors page
+      setPage('recommended')
     }
   }, [result.data]) // eslint-disable-line
 

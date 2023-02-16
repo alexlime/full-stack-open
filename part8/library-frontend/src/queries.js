@@ -52,9 +52,9 @@ mutation Mutation($name: String!, $setBornTo: Int!) {
     name: $name,
     setBornTo: $setBornTo
   ) {
-    bookCount
     born
     name
+    bookCount
   }
 }
 `
@@ -72,6 +72,16 @@ export const DELETE_BOOK = gql`
 mutation deleteBook($title: String!) {
   deleteBook(title: $title) {
     id
+  }
+}
+`
+
+
+export const ME = gql`
+query me {
+  me {
+    username
+    favouriteGenre
   }
 }
 `

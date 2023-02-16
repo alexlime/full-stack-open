@@ -3,10 +3,12 @@ import { ALL_AUTHORS } from '../queries'
 
 import AuthorsForm from './AuthorsForm'
 
-const Authors = (props) => {
-  const result = useQuery(ALL_AUTHORS)
+const Authors = ({show, token}) => {
+  const result = useQuery(ALL_AUTHORS, {
+    notifyOnNetworkStatusChange: true
+  })
 
-  if (!props.show) {
+  if (!show) {
     return null
   }
 
@@ -35,7 +37,7 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
-      <AuthorsForm />
+      {token && <AuthorsForm />}
     </div>
   )
 }

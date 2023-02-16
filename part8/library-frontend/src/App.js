@@ -4,8 +4,10 @@ import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
 import Login from './components/Login'
+import Recommended from './components/Recommended'
 
 const App = () => {
+  // const [page, setPage] = useState('recommended')
   const [page, setPage] = useState('books')
   const [token, setToken] = useState(null)
   const client = useApolloClient()
@@ -18,8 +20,12 @@ const App = () => {
   const logout = () => {
     setToken(null)
     localStorage.clear()
-    client.resetStore() // resets the cache of the Apollo client
-    setPage('authors')
+    setPage('books')
+    client.resetStore() // resets the cache, refetches actuve queries
+    /* Another way is to reset the cache without refetching, but it has a bug with component rerender,so a page reload is needed */
+    // client.clearStore().then(() => {
+    //   window.location.reload()
+    // })
   }
 
   return (
@@ -30,15 +36,18 @@ const App = () => {
 
         {token ?
           <>
+           <button onClick={() => setPage('recommended')}>recommended</button>
            <button onClick={() => setPage('add')}>add book</button>
            <button onClick={logout}>logout</button>
           </>
          : <button onClick={() => setPage('login')}>login</button>}
       </div>
 
-      <Authors show={page === 'authors'} />
+      <Authors show={page === 'authors'} token={token}/>
 
       <Books show={page === 'books'} />
+
+      <Recommended show={page === 'recommended'} />
 
       <NewBook show={page === 'add'} setPage={setPage} />
 
