@@ -1,4 +1,4 @@
-# Full Stack open 2022: completed apps
+# Full Stack open: completed apps
 React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
 
 > [fullstackopen.com](https://fullstackopen.com/en)
