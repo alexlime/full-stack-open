@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react'
-import { useApolloClient } from '@apollo/client'
+import { useApolloClient, useSubscription } from '@apollo/client'
+
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
 import Login from './components/Login'
 import Recommended from './components/Recommended'
+
+import { BOOK_ADDED, ALL_BOOKS } from './queries'
 
 const App = () => {
   // const [page, setPage] = useState('recommended')
@@ -27,6 +30,20 @@ const App = () => {
     //   window.location.reload()
     // })
   }
+
+  // When a new person is added, the server sends a notification to the client
+  useSubscription(BOOK_ADDED, {
+    onData: ({ data }) => {
+      // when the details of a new person are received, the person is added to the Apollo cache
+      const addedBook = data.data.bookAdded
+      alert(`BOOK ADDED:  ${addedBook.title}`)
+      client.cache.updateQuery({ query: ALL_BOOKS, variables: { genre: '' }}, ({allBooks}) => {
+        return {
+          allBooks: allBooks.concat(addedBook),
+        }
+      })
+    }
+  })
 
   return (
     <div>

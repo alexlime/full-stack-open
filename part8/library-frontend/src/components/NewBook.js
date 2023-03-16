@@ -16,14 +16,15 @@ const NewBook = ({ show, setPage }) => {
     onError: (error) => {
       console.log(error)
     },
-    update: (cache, response) => {
-      // Using update callback
-      cache.updateQuery({ query: ALL_BOOKS, variables: { genre: '' }}, ({allBooks}) => {
-        return {
-          allBooks: allBooks.concat(response.data.addBook),
-        }
-      })
-    }
+    /* Cache is now updated from subscription */
+    // update: (cache, response) => {
+    //   // Using update callback
+    //   cache.updateQuery({ query: ALL_BOOKS, variables: { genre: '' }}, ({allBooks}) => {
+    //     return {
+    //       allBooks: allBooks.concat(response.data.addBook),
+    //     }
+    //   })
+    // }
   })
 
 
