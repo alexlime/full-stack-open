@@ -14,6 +14,7 @@ const typeDefs = `
   type Author {
     name: String!
     born: Int
+    book: [Book!]
     bookCount: Int!
   }
 
@@ -50,3 +51,4 @@ const typeDefs = `
 `
 
 module.exports = typeDefs
+

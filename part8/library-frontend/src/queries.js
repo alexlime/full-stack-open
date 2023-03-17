@@ -39,18 +39,6 @@ export const ALL_BOOKS = gql`
   ${BOOK_DETAILS}
 `
 
-// export const ALL_BOOKS = gql`
-// query allBooks($genre: String) {
-//   allBooks(genre: $genre) {
-//     genres
-//     published
-//     title
-//     author {
-//       name
-//     }
-//   }
-// }`
-
 export const ADD_BOOK = gql`
 mutation AddBook(
   $title: String!,

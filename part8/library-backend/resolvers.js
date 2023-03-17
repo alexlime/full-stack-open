@@ -57,7 +57,13 @@ const resolvers = {
   Author: { // Altering default resolver
     name: (root) => root.name, // not necessary (example)
     bookCount: async (root) => {
-      const bookCount = await Book.count({author: root._id})
+      // const bookCount = await Book.count({author: root._id})
+      // console.log('Book.count')
+      // return bookCount
+      /* Solving n+1 problem by having an array of book ids field in author model
+        and then counting this array here 
+       */
+      const bookCount = root.books.length
       return bookCount
     }
   },
@@ -109,12 +115,14 @@ const resolvers = {
 
         let author = await Author.findOne({name: args.author}).session(session)
         if (!author) { // no author, create new
-          author = new Author({name: args.author})
-          await author.save({ session })
+          author = new Author({ name: args.author, books: [] })
         }
 
         book = new Book({...args, author: author})
         await book.save({ session })
+
+        author.books.push(book._id)
+        await author.save({ session })
 
         await session.commitTransaction()
 
