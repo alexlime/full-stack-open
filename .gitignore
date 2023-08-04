@@ -1,5 +1,6 @@
 # production
 /build
+mongo_data/
 
 # Testing
 cypress/videos

@@ -1,0 +1,12 @@
+### UPDATE BLOG
+PUT http://localhost:3000/todos/64cd2c6e34e7d893caa3f3fa
+Content-Type: application/json
+
+{
+  "text": "Updated on 04/08/23 :)",
+  "done": true
+}
+
+
+### GET ALL USERS
+GET http://localhost:3000/todos/64cd0f993abc3c6be182f9e7

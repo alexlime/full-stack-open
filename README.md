@@ -94,3 +94,11 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Using mongoDB transactions: writing to multiple documents
     - Using fragments and Subscriptions
     - Solving n+1 problem
+    - 
+#### **Part 12 Containers**
+  - Apps:
+    - ...
+    - ...
+
+  - Topics: 
+    - ...
