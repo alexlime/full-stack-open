@@ -1,6 +1,7 @@
 # production
 /build
 mongo_data/
+redis-data/
 
 # Testing
 cypress/videos

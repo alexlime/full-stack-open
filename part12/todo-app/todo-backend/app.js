@@ -1,3 +1,7 @@
+// Start app:
+// REDIS_URL=redis://localhost:6379 MONGO_URL=mongodb://the_username:the_password@localhost:3456/the_database npm run dev
+
+
 const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');

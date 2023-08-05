@@ -3,6 +3,8 @@ mongosh -u root -p example
 show dbs
 use the_database
 show collections
+db.auth("the_username", "the_password")
 db.todos.find({})
 db.todos.insertOne({text:'Increase the number of tools in my toolbelt', done: false})
 db.todos.find({})
+db.todos.deleteMany({})

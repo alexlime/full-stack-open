@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    command: ['redis-server', '--appendonly', 'yes', '--dir', '/data'] # Overwrite the CMD to use AOF persistence (Without this line Redis will start with its default configuration )
+    volumes:
+      - ./redis_data:/data
+
   mongo:
     image: mongo
     ports:

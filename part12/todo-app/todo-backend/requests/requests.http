@@ -1,4 +1,17 @@
-### UPDATE BLOG
+### GET ALL USERS
+GET http://localhost:3000/todos/64cd0f993abc3c6be182f9e7
+
+### ADD TODO
+POST http://localhost:3000/todos
+Content-Type: application/json
+
+{
+  "text": "Learn about containers",
+  "done": false
+}
+
+
+### UPDATE TODO
 PUT http://localhost:3000/todos/64cd2c6e34e7d893caa3f3fa
 Content-Type: application/json
 
@@ -8,5 +21,4 @@ Content-Type: application/json
 }
 
 
-### GET ALL USERS
-GET http://localhost:3000/todos/64cd0f993abc3c6be182f9e7
+
