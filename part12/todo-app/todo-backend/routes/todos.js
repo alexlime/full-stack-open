@@ -50,10 +50,6 @@ singleRouter.get('/', async (req, res) => {
 singleRouter.put('/', async (req, res) => {
   const { text, done } = req.body
 
-  if(isNaN(todos)) {
-    todos = await setAsync('added_todos', 0)
-  }
-
   // Update the todo object in memory
   req.todo.text = text;
   req.todo.done = done;
