@@ -4,7 +4,7 @@ services:
   redis:
     image: redis:latest
     ports:
-      - 6379:6379
+      - 3002:6379
     command: ['redis-server', '--appendonly', 'yes', '--dir', '/data'] # This command runs in a contianer when it starts. Use AOF persistence (Without this line Redis will start with its default configuration )
     volumes:
       - ./redis_data:/data
@@ -12,7 +12,7 @@ services:
   mongo:
     image: mongo
     ports:
-      - 3456:27017
+      - 3003:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -20,3 +20,20 @@ services:
     volumes:
           - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
           - ./mongo_data:/data/db
+
+  app:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3210:3210
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+      - MONGO_URL=mongodb://the_username:the_password@mongo:27017/the_database
+      - PORT=3210
+    depends_on:
+      - mongo
+      - redis
