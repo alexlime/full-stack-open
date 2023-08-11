@@ -1,0 +1,61 @@
+services:
+
+  redis:
+    image: redis:latest
+    ports:
+      - 3002:6379
+    command: ['redis-server', '--appendonly', 'yes', '--dir', '/data'] # This command runs in a contianer when it starts. Use AOF persistence (Without this line Redis will start with its default configuration )
+    volumes:
+      - ./todo-backend/redis_data:/data
+
+  mongo:
+    image: mongo
+    ports:
+      - 3003:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: the_database
+    volumes:
+          - ./todo-backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+          - ./todo-backend/mongo_data:/data/db
+
+  todo-back:
+    build:
+      context: .
+      dockerfile: ./todo-backend/dev.Dockerfile
+    # ports:
+    #   - 3210:3210
+    volumes:
+      - ./todo-backend:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://redis:6379
+      - MONGO_URL=mongodb://the_username:the_password@mongo:27017/the_database
+      - PORT=3210
+    depends_on:
+      - mongo
+      - redis
+
+  todo-front:
+    image: fso-todo-front-dev
+    build:
+      context: . # The context will pick this directory as the "build context"
+      dockerfile: ./todo-frontend/dev.Dockerfile # This will simply tell which dockerfile to read
+    volumes:
+      - ./todo-frontend:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
+    # ports:
+    #   - 3000:3000
+    container_name: fso-todo-front-dev # This will name the container
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - todo-front # wait for the frontend container to be started
+      - todo-back
+    
