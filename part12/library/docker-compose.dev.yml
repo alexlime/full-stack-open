@@ -1,0 +1,44 @@
+# docker compose -f docker-compose.dev.yml up
+
+services:
+
+  library-backend:
+    image: library-backend-dev
+    container_name: library-backend-dev
+    build:
+      context: .
+      dockerfile: ./library-frontend/dev.Dockerfile
+    ports:
+      - 4001:4001
+    volumes:
+      - ./library-backend:/usr/src/app
+    environment:
+      - MONGODB_URI=XXX
+      - JWT_SECRET=mustHoldAnyValue
+      - PORT=4001
+    # depends_on:
+      # - mongo
+
+  library-frontend:
+    image: library-frontend-dev
+    container_name: library-frontend-dev
+    build:
+      context: .
+      dockerfile: ./library-frontend/dev.Dockerfile
+    environment:
+      - REACT_APP_BACKEND_URL=localhost:8080/api/
+    volumes:
+      - ./library-frontend:/usr/src/app
+    ports:
+      - 3000:3000
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - library-frontend
+      - library-backend

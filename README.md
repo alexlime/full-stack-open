@@ -94,11 +94,14 @@ React, NodeJS, Express, Redux, Testing, MongoDB, GraphQL
     - Using mongoDB transactions: writing to multiple documents
     - Using fragments and Subscriptions
     - Solving n+1 problem
-    - 
+    
 #### **Part 12 Containers**
   - Apps:
-    - ...
-    - ...
+    - Containerised *library-frontend* and *library-backend* (GQL apps)
 
   - Topics: 
-    - ...
+    - Building and configuring environments using docker compose
+    -  Containers in development (Mongo, Redis, Nodejs)
+    -  Communications between containers
+    -  Whole application development in a container
+    -  Using Nginx as a reverse-proxy in front of application (fontend and backed)

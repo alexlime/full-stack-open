@@ -1,0 +1,38 @@
+# docker compose up
+
+services:
+
+  library-backend:
+    image: library-backend-prod
+    container_name: library-backend-prod
+    build:
+      context: .
+      dockerfile: ./library-backend/Dockerfile
+    # ports:
+      # - 4001:4001
+    volumes:
+      - ./library-backend:/usr/src/app
+    environment:
+      - MONGODB_URI=XXX
+      - JWT_SECRET=mustHoldAnyValue
+      - PORT=4001
+
+  library-frontend:
+    image: library-frontend-prod
+    container_name: library-frontend-prod
+    build:
+      context: ./library-frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./library-frontend:/usr/src/app
+
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - library-frontend
+      - library-backend

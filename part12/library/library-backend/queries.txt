@@ -1,0 +1,113 @@
+# Queries
+
+
+query AllBooks {
+  allBooks{
+    title
+    genres
+    author {
+      name
+    }
+  }
+}
+
+query AllBooks {
+  allBooks(
+    author: "George Orwell"
+  ) {
+    title
+    genres
+    author {
+      name
+    }
+  }
+}
+
+query AllBooks {
+  allBooks(
+    genre: "dystopia"
+  ) {
+    title
+    genres
+    author {
+      name
+    }
+  }
+}
+
+query AllBooks {
+  allBooks(
+    author: "George Orwell",
+    genre: "dystopia"
+  ) {
+    title
+    genres
+    author {
+      name
+    }
+  }
+}
+
+
+-------------------------------------------
+
+
+mutation {
+  addBook(
+    title: "NoSQL Distilled",
+    author: "Martin Fowler",
+    published: 2012,
+    genres: ["database", "nosql"]
+  ) {
+    title
+  }
+}
+mutation {
+  addBook(
+    title: "1984",
+    author: "George Orwell",
+    published: 1949,
+    genres: ["dystopia"]
+  ) {
+    title
+  }
+}
+mutation {
+  addBook(
+    title: "The Secret History",
+    author: "Donna Tartt",
+    published: 1992,
+    genres: ["novel"]
+  ) {
+    title
+  }
+}
+mutation {
+  addBook(
+    title: "The goldfinch",
+    author: "Donna Tartt",
+    published: 2013,
+    genres: ["novel", "Thriller"]
+  ) {
+    title,
+    author {
+      name
+    }
+  }
+}
+
+
+mutation EditAuthor {
+  editAuthor(
+    name: "George Orwell",
+    setBornTo: 1903
+    ) {
+      name
+      born
+    }
+}
+
+
+-------------------------------------------
+
+
