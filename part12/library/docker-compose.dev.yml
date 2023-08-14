@@ -12,12 +12,9 @@ services:
       - 4001:4001
     volumes:
       - ./library-backend:/usr/src/app
-    environment:
-      - MONGODB_URI=XXX
-      - JWT_SECRET=mustHoldAnyValue
-      - PORT=4001
-    # depends_on:
-      # - mongo
+    env_file:
+      - ./library-backend/.env
+
 
   library-frontend:
     image: library-frontend-dev
@@ -25,8 +22,8 @@ services:
     build:
       context: .
       dockerfile: ./library-frontend/dev.Dockerfile
-    environment:
-      - REACT_APP_BACKEND_URL=localhost:8080/api/
+    env_file:
+      - ./library-frontend/.env
     volumes:
       - ./library-frontend:/usr/src/app
     ports:

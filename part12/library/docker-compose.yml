@@ -12,10 +12,8 @@ services:
       # - 4001:4001
     volumes:
       - ./library-backend:/usr/src/app
-    environment:
-      - MONGODB_URI=XXX
-      - JWT_SECRET=mustHoldAnyValue
-      - PORT=4001
+    env_file:
+      - ./library-backend/.env
 
   library-frontend:
     image: library-frontend-prod

@@ -3,6 +3,7 @@
 mongo_data/
 redis-data/
 
+
 # Testing
 cypress/videos
 
@@ -42,6 +43,8 @@ yarn-error.log*
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
 
 
 
