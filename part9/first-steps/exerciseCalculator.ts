@@ -1,4 +1,4 @@
-interface TrainingSummary {
+export interface TrainingSummary {
   periodLength: number;
   trainingDays: number;
   success: boolean;
@@ -35,9 +35,7 @@ const parseExerciseArguments = (args: string[]): { target: number; exHours: numb
   return { target, exHours };
 };
 
-const exHours: number[] = [3, 0, 2, 4.5, 0, 3, 1];
-
-const calculateExercises = (target: number, exHours: number[]): TrainingSummary => {
+export const calculateExercises = (target: number, exHours: number[]): TrainingSummary => {
 
   // Calculate values
   const periodLength = exHours.length;
@@ -73,13 +71,15 @@ const calculateExercises = (target: number, exHours: number[]): TrainingSummary 
   };
 };
 
-try {
-  const { target, exHours } = parseExerciseArguments(process.argv);
-  console.log(calculateExercises(target, exHours));
-} catch (error: unknown) {
-  let errorMessage = 'Something bad happened.';
-  if (error instanceof Error) {
-    errorMessage += ' Error: ' + error.message;
+if (require.main === module) { // Test whether the module is main, i.e. it is run directly from the command line
+  try {
+    const { target, exHours } = parseExerciseArguments(process.argv);
+    console.log(calculateExercises(target, exHours));
+  } catch (error: unknown) {
+    let errorMessage = 'Something bad happened.';
+    if (error instanceof Error) {
+      errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
   }
-  console.log(errorMessage);
 }
