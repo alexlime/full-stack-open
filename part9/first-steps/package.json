@@ -1,0 +1,23 @@
+{
+  "name": "first-steps",
+  "version": "1.0.0",
+  "description": "ex9.4-9.5",
+  "main": "index.js",
+  "scripts": {
+    "ts-node": "ts-node",
+    "bmi": "ts-node bmiCalculator.ts",
+    "exc": "ts-node exerciseCalculator.ts",
+    "dev": "ts-node-dev index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.1"
+  }
+}
