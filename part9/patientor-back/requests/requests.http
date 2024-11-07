@@ -1,0 +1,14 @@
+###-### ### ### ### ### ### ###
+GET http://localhost:3000/api/patients
+
+
+### POST: new note
+POST http://localhost:3000/api/patients
+Content-Type: application/json
+
+  {
+    "name": "Alex Lime",
+    "dateOfBirth": "1987-12-03",
+    "gender": "male",
+    "occupation": "IT"
+  }
